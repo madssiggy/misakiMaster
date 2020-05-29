@@ -15,7 +15,7 @@ public class Bottun : MonoBehaviour
         isClicked = false;
         script = GameObject.Find("StageManager").GetComponent<manager>();
 
-        FieldObject = GameObject.Find("fieldCenter");
+        FieldObject = GameObject.Find("FieldCenter");
         FieldScript = FieldObject.GetComponent<field>();
     }
 
