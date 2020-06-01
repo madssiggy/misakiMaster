@@ -45,7 +45,7 @@ public class slimeControl : MonoBehaviour
     public void SlimeDestroy(Vector3 MoveWay)
     {
 
-        script.CheckBubble();
+        
         StartCoroutine(SlimeMove(MoveWay));
         Destroy(gameObject.transform.parent.gameObject);
 

@@ -97,6 +97,7 @@ public class field : MonoBehaviour
 			//	script.operations(-1);
 			//}
        }
+        script.CheckBubble();
     }
 	IEnumerator MoveR()
 {
