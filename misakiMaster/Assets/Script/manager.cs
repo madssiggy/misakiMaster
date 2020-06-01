@@ -15,7 +15,7 @@ public class manager : MonoBehaviour
     public bool isRotate = false;
     public bool isCamera = false;
 
-    public int ClearNum;  //クリアまでの数
+   
 
     public AudioClip SE;
     public enum Wall
@@ -31,16 +31,14 @@ public class manager : MonoBehaviour
     {
         small,middle,big,
     }
-public static int[] DisappearSlimeNum;//スライムを消して生む動き用
+
 
     //スライムＳＥ用
     AudioSource audioSource;
 
-    GameObject[] big ;
-    GameObject[] mid;
-    GameObject[] small;
-  public  int virusnum;
-    public int slimenum;
+    GameObject[] bubble;
+
+    public int bubbleNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,40 +46,28 @@ public static int[] DisappearSlimeNum;//スライムを消して生む動き用
         SceneNavigatorObj = GameObject.Find("SceneNavigator");
         script = SceneNavigatorObj.GetComponent<SceneNavigator>();
         //==============================================================
-        DisappearSlimeNum = new int[2];
-        for(int i=0;i<2;i++)
-        DisappearSlimeNum[i] = 0;
+
         
         cameraRotate = 0;
         nowTop = (int)Wall.Top;
 
         audioSource = GetComponent<AudioSource>();
 
-        big = GameObject.FindGameObjectsWithTag("BigSlime");
-        mid = GameObject.FindGameObjectsWithTag("MiddleSlime");
-        small = GameObject.FindGameObjectsWithTag("SmallSlime");
-        virusnum = ((big.Length) + (mid.Length) + (small.Length)) ;
+ 
+        bubble = GameObject.FindGameObjectsWithTag("bubble");
+
+
+        bubbleNum = bubble.Length; 
+
         //Debug.Log("virusnum=" + virusnum);
     }
 
     // Update is called once per frame
     void Update()
     {
-      if(ClearNum == 2)
-        {
-           //美咲「フェード系はすべてSceneNavigatorを通すように。ってかClearNum==2で何が起こるんや」
-           //fadeStart();
-        }
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            CheckSlime();
-        }
-        if (slimenum == 0)
-        {
-            //美咲「スライム全消し時はクリア処理が入るはずなので、クリア処理ができ次第
-            //      SceneNavigatorから遷移させてくれ」
-            //SceneManager.LoadScene("SELECT STAGE");
-        }
+
+
+
     }
   
 
@@ -204,21 +190,15 @@ public static int[] DisappearSlimeNum;//スライムを消して生む動き用
         Debug.Log("ＳＥ発生");
     }
 
-    public void clear(int Cpoint)
+ 
+   public  void CheckBubble()
     {
-        ClearNum = ClearNum + Cpoint;
-    }
+        bubble = GameObject.FindGameObjectsWithTag("bubble");
+        bubbleNum = bubble.Length;      //Debug.Log("virusnum=" + virusnum);
 
-   public  void CheckSlime()
-    {
-        big = GameObject.FindGameObjectsWithTag("BigSlime");
-        mid = GameObject.FindGameObjectsWithTag("MiddleSlime");
-        small = GameObject.FindGameObjectsWithTag("SmallSlime");
-        virusnum = ((big.Length) + (mid.Length) + (small.Length));
-        //Debug.Log("virusnum=" + virusnum);
-        if (virusnum ==0)
+        if (bubbleNum ==0)
         {
-            Debug.Log("スライムがなくなったぞ。今だセーラムーん" + virusnum);
+            Debug.Log("泡がなくなったぞ。今だセーラムーン" + bubbleNum);
             SceneManager.LoadScene("SELECT STAGE");
             //  Debug.Log(tagname + "タグがついたオブジェクトはありません");
         }
