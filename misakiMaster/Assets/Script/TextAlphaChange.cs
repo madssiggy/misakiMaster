@@ -17,7 +17,7 @@ public class TextAlphaChange : MonoBehaviour
         red = GetComponent<Image>().color.r;
         green = GetComponent<Image>().color.g;
         blue = GetComponent<Image>().color.b;
-        Alpha = GetComponent<Image>().color.a;
+        Alpha = 0.1f;
 
         Flag = true;    
     }
@@ -27,15 +27,15 @@ public class TextAlphaChange : MonoBehaviour
 
         if (Flag)
         {
-            Alpha -= 0.01f;
-            if(Alpha <= 0.3f)
+            Alpha -= 0.03f;
+            if(Alpha <= 0.1f)
             {
                 Flag = false;
             }
         }
         else if(!Flag)
         {
-            Alpha += 0.01f;
+            Alpha += 0.03f;
             if (Alpha >= 1.0f)
             {
                 Flag = true;

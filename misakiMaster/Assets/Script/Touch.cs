@@ -23,8 +23,8 @@ public class Touch : MonoBehaviour
     manager managerScript;
 
     //タッチ回数保存===========
-    public int touchNum;//touchKaisuu.csで使ってます。スライムを消すタッチをした場合のみプラスされる
-    bool touchFlg;//スライムを消すタッチであった場合のみtouchNumをプラスする
+    public int touchNum;    //touchKaisuu.csで使ってます。スライムを消すタッチをした場合のみプラスされる
+    bool touchFlg;          //スライムを消すタッチであった場合のみtouchNumをプラスする
     //=======================亀山
 
     //=========================
@@ -98,7 +98,6 @@ public class Touch : MonoBehaviour
 
                 if (remove_cnt == 2)
                 {
-               
                     //中スライムが消された場合
                     if (startObj.CompareTag("MiddleSlime"))
                     {
@@ -203,7 +202,8 @@ public class Touch : MonoBehaviour
       
                 
         }
-        if (touchFlg == true) {
+        if (touchFlg == true)
+        {
             touchNum++;
             managerScript.CheckBubble();
             touchFlg = false;
