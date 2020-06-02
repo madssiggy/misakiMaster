@@ -10,7 +10,6 @@ public class manager : MonoBehaviour
     SceneNavigator script;
     //===============================================
     public int cameraRotate;   //true = X軸、false = Z軸
-	public int operate; //操作回数
 
     public bool isRotate = false;
     public bool isCamera = false;
@@ -170,12 +169,6 @@ public class manager : MonoBehaviour
 				cameraRotate = 2;
 				break;
 		}
-	}
-
-
-    public void operations(int point)
-	{
-		operate = operate + point;
 	}
 
     public void PlaySE(AudioClip tmp)
