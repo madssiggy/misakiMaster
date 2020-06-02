@@ -37,15 +37,15 @@ public class slimeControl : MonoBehaviour
         Mathf.Ceil(transform.rotation.y);
         Mathf.Ceil(transform.rotation.z);
 
-        script.CheckSlime();
-        script.slimenum++;
+
+
     }
    
     //スライムをぶっこわす
     public void SlimeDestroy(Vector3 MoveWay)
     {
-        script.slimenum--;
-        script.CheckSlime();
+
+        
         StartCoroutine(SlimeMove(MoveWay));
         Destroy(gameObject.transform.parent.gameObject);
 
@@ -54,11 +54,11 @@ public class slimeControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isMove && (Input.GetKeyDown(KeyCode.LeftArrow)|| Input.GetKeyDown(KeyCode.RightArrow)))
-        {
-            isMove = true;
-            Physics.gravity = new Vector3(0, -10, 0);
-        }
+        //if (!isMove && (Input.GetKeyDown(KeyCode.LeftArrow)|| Input.GetKeyDown(KeyCode.RightArrow)))
+        //{
+        //    isMove = true;
+        //    Physics.gravity = new Vector3(0, -10, 0);
+        //}
         switch (script.nowTop)
         {
             case (int)manager.Wall.Top:

@@ -22,6 +22,9 @@ public class Touch : MonoBehaviour
     public GameObject managerObj;
     manager managerScript;
 
+    //タッチ回数保存===========
+    public int touchNum;//touchKaisuu.csで使ってます。スライムを消すタッチをした場合のみプラスされる
+    bool touchFlg;//スライムを消すタッチであった場合のみtouchNumをプラスする
     //=======================亀山
 
     //=========================
@@ -58,7 +61,9 @@ public class Touch : MonoBehaviour
                     //　大スライムにRayが衝突している時
                     if (hit.collider.gameObject.CompareTag("BigSlime"))
                     {
-                        Debug.Log("爆発");
+                      Debug.Log("爆発");
+
+                        touchFlg = true;Debug.Log("有効なタッチである");
 
                         // 処理内容はslimeControl.csのBigSlimeClickAct()の中
                         hit.collider.gameObject.GetComponent<slimeControl>().SlimeDestroy(new Vector3(0,0,0));
@@ -68,6 +73,8 @@ public class Touch : MonoBehaviour
                              hit.collider.gameObject.CompareTag("SmallSlime"))
                     {
                         currentName = hit.collider.gameObject.tag;
+
+                    
 
                         // スライムオブジェクトを格納
                         startObj = hit.collider.transform.parent.gameObject;
@@ -86,6 +93,7 @@ public class Touch : MonoBehaviour
             //タッチ終了時
             else if(TouchStateManagerScript.GetTouchPhase() == TouchPhase.Ended)
             {
+             
                 int remove_cnt = removableSlimeList.Count;
 
                 if (remove_cnt == 2)
@@ -94,6 +102,7 @@ public class Touch : MonoBehaviour
                     //中スライムが消された場合
                     if (startObj.CompareTag("MiddleSlime"))
                     {
+                  
                         GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInBIg");
                         //プレハブを元に、インスタンスを生成
                         GameObject tmp=Instantiate(obj, 
@@ -107,10 +116,13 @@ public class Touch : MonoBehaviour
                         //生成したプレハブをFieldCenterに登録する。
                         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
                         Debug.Log("終点側に大スライムを生成");
+                        touchFlg = true;Debug.Log("有効なタッチである");
+                    
                     }
                     //小スライムが消された場合
                     else if (startObj.CompareTag("SmallSlime"))
                     {
+                     
                         GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInMid");
                         //プレハブを元に、インスタンスを生成
                        GameObject tmp= Instantiate(obj,
@@ -124,6 +136,8 @@ public class Touch : MonoBehaviour
                         //生成したプレハブをFieldCenterに登録する。
                         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
                         Debug.Log("終点側に中スライムを生成");
+                        touchFlg = true;Debug.Log("有効なタッチである");
+          
                     }
 
                     GameObject.Destroy(startObj);
@@ -186,7 +200,14 @@ public class Touch : MonoBehaviour
                     }
                 }
             }
-            
+      
+                
+        }
+        if (touchFlg == true) {
+            touchNum++;
+            managerScript.CheckBubble();
+            touchFlg = false;
+     
         }
     }
 
