@@ -72,7 +72,7 @@ public class Retry : MonoBehaviour
                 Seconds = (int)MaxTime;
                 text_CountDown.text = Seconds.ToString();
 
-                if (Seconds == 4.0f)
+                if (Seconds == 3.0f)
                 {
                     if (!Flag_4_01)
                     {
@@ -83,7 +83,7 @@ public class Retry : MonoBehaviour
                         Flag_4_01 = true;
                     }
                 }
-                else if(Seconds == 3.0f)
+                else if(Seconds == 2.0f)
                 {
                     if (!Flag_4_02)
                     {
@@ -93,7 +93,7 @@ public class Retry : MonoBehaviour
                         Flag_4_02 = true;
                     }
                 }
-                else if (Seconds == 2.0f)
+                else if (Seconds == 1.0f)
                 {
                     if (!Flag_4_03)
                     {

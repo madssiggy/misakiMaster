@@ -67,11 +67,11 @@ public class StageSelect : MonoBehaviour
     public void Stage2_1()
     {
         Debug.Log("せいれいのもり1-1に移動");
-        script.SceneChange_Fade("2-1",0.5f);
+        script.SceneChange_Fade("2-1",1.0f);
     }
     public void Stage3_1()
     {
         Debug.Log("からっぽのかざん1-1に移動");
-        script.SceneChange_Fade("3-1",0.5f);
+        script.SceneChange_Fade("3-1",1.0f);
     }
 }
