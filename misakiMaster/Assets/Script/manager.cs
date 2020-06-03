@@ -14,7 +14,7 @@ public class manager : MonoBehaviour
     public bool isRotate = false;
     public bool isCamera = false;
 
-   
+    public GameObject ClearCanvas;
 
     public AudioClip SE;
     public enum Wall
@@ -38,6 +38,7 @@ public class manager : MonoBehaviour
     GameObject[] bubble;
 
     public int bubbleNum;
+    public static int CbubbleNum; //シーンまたいでも残る変数
     // Start is called before the first frame update
     void Start()
     {
@@ -192,8 +193,15 @@ public class manager : MonoBehaviour
         if (bubbleNum ==0)
         {
             Debug.Log("泡がなくなったぞ。今だセーラムーン" + bubbleNum);
-            SceneManager.LoadScene("SELECT STAGE");
+            //SceneManager.LoadScene("SELECT STAGE");
             //  Debug.Log(tagname + "タグがついたオブジェクトはありません");
+            ClearCanvas.SetActive(true);
         }
+    }
+
+    //げったーロボ
+    public static int GetbubbleNum()
+    {
+        return CbubbleNum;
     }
 }
