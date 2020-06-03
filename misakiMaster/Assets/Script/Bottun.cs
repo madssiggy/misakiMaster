@@ -9,6 +9,7 @@ public class Bottun : MonoBehaviour
     manager script;
     GameObject FieldObject;
     field FieldScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,6 @@ public class Bottun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
     public void OnClick()
     {
@@ -46,6 +46,7 @@ public class Bottun : MonoBehaviour
             script.SetTop(script.nowTop, false);
             StartCoroutine(FieldScript.RollYR());
         }
+
 
     }
     public void SetisClicked(bool check)
