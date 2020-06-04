@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Clear_Fade : MonoBehaviour
+public class Clear_Manager : MonoBehaviour
 {
     GameObject ClearSceneImage; // 自分のオブジェクト取得用変数
     public float CfadeStart = 1f; // フェード開始時間
     public bool CfadeIn = true; // trueの場合はフェードイン
     public float CfadeSpeed = 1f; // フェード速度指定
-
 
     GameObject SceneNavigatorObj;
     SceneNavigator script;

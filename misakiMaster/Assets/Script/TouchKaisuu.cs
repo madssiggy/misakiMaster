@@ -12,6 +12,7 @@ public class TouchKaisuu : MonoBehaviour
     Text boardText;
     Touch touchScript;
     public int Operate;
+    public static int operate;  //ゲッター用
 
     // Start is called before the first frame update
     void Start()
@@ -34,5 +35,11 @@ public class TouchKaisuu : MonoBehaviour
         {
             RetryPanelMakeScript.SetGameOverFlag();
         }
+    }
+
+    //げったーロボ
+    public static int GetOperate()
+    {
+        return operate;
     }
 }
