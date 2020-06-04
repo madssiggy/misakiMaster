@@ -514,11 +514,9 @@ MonoBehaviour:
   operate: 0
   isRotate: 0
   isCamera: 0
-  ClearNum: 0
   SE: {fileID: 0}
   nowTop: 0
-  virusnum: 0
-  slimenum: 1
+  bubbleNum: 1
 --- !u!1 &801724796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,7 +1367,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}

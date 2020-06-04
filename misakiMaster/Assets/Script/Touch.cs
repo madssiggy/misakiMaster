@@ -102,17 +102,17 @@ public class Touch : MonoBehaviour
                     //中スライムが消された場合
                     if (startObj.CompareTag("MiddleSlime"))
                     {
-                  
+                        Debug.Log("親：" + startObj.transform.parent.gameObject);
                         GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInBIg");
                         //プレハブを元に、インスタンスを生成
                         GameObject tmp=Instantiate(obj, 
                                     new Vector3
                                     (
-                                       (int)(startObj.transform.position.x + endObj.transform.position.x) / 2,
-                                       (int)(startObj.transform.position.y + endObj.transform.position.y) / 2,
-                                       (int)(startObj.transform.position.z + endObj.transform.position.z) / 2
+                                       (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
+                                       (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
+                                       (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
                                      ),
-                                      Quaternion.Euler(CreateSlimeQuarternion()));
+                                      Quaternion.Euler(CreateBigSlimeQuarternion()));
                         //生成したプレハブをFieldCenterに登録する。
                         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
                         Debug.Log("終点側に大スライムを生成");
@@ -128,9 +128,9 @@ public class Touch : MonoBehaviour
                        GameObject tmp= Instantiate(obj,
                                     new Vector3
                                     (
-                                       (int)(startObj.transform.position.x + endObj.transform.position.x) / 2,
-                                       (int)(startObj.transform.position.y + endObj.transform.position.y) / 2,
-                                       (int)(startObj.transform.position.z + endObj.transform.position.z) / 2
+                                       (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
+                                       (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
+                                       (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
                                      ),
                                       Quaternion.Euler(CreateSlimeQuarternion()));
                         //生成したプレハブをFieldCenterに登録する。
@@ -255,9 +255,40 @@ public class Touch : MonoBehaviour
         
         return prefRotate;
     }
+    Vector3 CreateBigSlimeQuarternion()
+    {
+        Vector3 Return;
+        Return = new Vector3(0, 0, 0);
+        Vector3 compared = startObj.transform.position;
+        Vector3 compare = endObj.transform.position;
+        int nowFront = managerScript.nowFront;
+        if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
+         Mathf.Floor(compared.x) / (MaxDistance / 2)) {
+            //縦長スライム生成
+           Return.z = 90;
+        } else {
+            Return.z = 0;
+        }
+
+        switch (nowFront) {
+            case (int)manager.Wall.Left:
+            case (int)manager.Wall.Right:
+                Return.y = 90f;
+                break;
+            case (int)manager.Wall.Front:
+            case (int)manager.Wall.Back:
+            default:
+                Return.y = 0f;
+                break;
+        }
+
+
+        return Return;
+    }
 
     public Vector3 GetStartObj()
     {
         return startObj.transform.position;
     }
+
 }

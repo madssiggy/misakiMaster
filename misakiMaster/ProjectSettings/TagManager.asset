@@ -8,6 +8,7 @@ TagManager:
   - MiddleSlime
   - BigSlime
   - bubble
+  - Empty
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Slime
   - 
   - 
   - 

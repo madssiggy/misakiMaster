@@ -34,7 +34,7 @@ public class Bottun : MonoBehaviour
         //==========================
         if (ClickSide == false && script.isCamera == false && script.isRotate == false) {
             //trueで左回転
-            script.SetTop(script.nowTop, true);
+
             StartCoroutine(FieldScript.RollYL());
             script.operations(-1);
 
@@ -45,7 +45,7 @@ public class Bottun : MonoBehaviour
         //==========================
         if (ClickSide == true && script.isCamera == false && script.isRotate == false) {
             //falseで右回転
-            script.SetTop(script.nowTop, false);
+   
             StartCoroutine(FieldScript.RollYR());
             script.operations(-1);
         }

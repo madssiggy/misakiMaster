@@ -20,12 +20,12 @@ public class manager : MonoBehaviour
     public AudioClip SE;
     public enum Wall
     {
-       Top = 0,
-        Bottom,
+       Front = 0,
+        Back,
         Left,
         Right
     }//前左後右で0~3
-    public int nowTop;  //現在上にある面が何かを保持する
+    public int nowFront;  //現在上にある面が何かを保持する
 
     public enum SlimeSize
     {
@@ -49,7 +49,7 @@ public class manager : MonoBehaviour
 
         
         cameraRotate = 0;
-        nowTop = (int)Wall.Top;
+        nowFront = (int)Wall.Front;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -71,43 +71,45 @@ public class manager : MonoBehaviour
     }
   
 
-    public void SetTop(int ChangeTop,bool rollWay)
+    public void SetFront(int ChangeTop,bool rollWay)
     {
         switch (rollWay)
         {
+            //右クリック,反時計回り
             case true:
                 switch (ChangeTop)
                 {
-                    case (int)Wall.Top:
-                        nowTop = (int)Wall.Left;
+                    case (int)Wall.Front:
+                        nowFront = (int)Wall.Left;
                         break;
-                    case (int)Wall.Bottom:
-                        nowTop = (int)Wall.Right;
+                    case (int)Wall.Back:
+                        nowFront = (int)Wall.Right;
                         break;
                     case (int)Wall.Left:
-                        nowTop = (int)Wall.Bottom;
+                        nowFront = (int)Wall.Back;
                             break;
                     case (int)Wall.Right:
-                        nowTop = (int)Wall.Top;
+                        nowFront = (int)Wall.Back;
                         break;
                     default:break;
                 }
                 break;
 
+                //左クリック
             case false:
                 switch (ChangeTop)
                 {
-                    case (int)Wall.Top:
-                        nowTop = (int)Wall.Right;
+                    case (int)Wall.Front:
+                        nowFront = (int)Wall.Right;
                         break;
-                    case (int)Wall.Bottom:
-                        nowTop = (int)Wall.Left;
+                    case (int)Wall.Back:
+                        nowFront = (int)Wall.Left;
                         break;
                     case (int)Wall.Left:
-                        nowTop = (int)Wall.Top;
+                        nowFront = (int)Wall.Front;
                         break;
                     case (int)Wall.Right:
-                        nowTop = (int)Wall.Bottom;
+                        nowFront = (int)Wall.Back;
                         break;
                     default:
                         break;
