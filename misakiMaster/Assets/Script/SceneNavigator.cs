@@ -6,6 +6,7 @@ using System;
 //我シングルトンぞ？シーンまたいでも生きるぞよ？崇めよ
 public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
 {
+    // シーン関連===========================================================
     private string beforeSceneName;     // 前のシーンを保持
     private string currentSceneName;    // 今のシーンを保持
     private string nextSceneName;       // 次のシーンを保持
@@ -24,6 +25,7 @@ public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
         get { return nextSceneName; }
     }
 
+    // フェード関連===========================================================
     [SerializeField]private CanvasFader fader = null;   // フェード用クラス
 
     //フェード時間
@@ -38,7 +40,6 @@ public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
     //フェード後のイベント
     public event Action FadeOutFinished = delegate { };
     public event Action FadeInFinished = delegate { };
-
 
     // 初期化(Awake時かその前の初アクセス時、どちらかの一度しか行われない)
     protected override void Init()
@@ -120,12 +121,42 @@ public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
         fader.gameObject.SetActive(true);
         fader.Play(isFadeOut: false, duration: FadeTime, onFinished: OnFadeOutFinish);
     }
+    //====================================
+    // フェードありでSceneReload
+    //====================================
+    public void SceneReload(float fadeTime)
+    {
+        //フェード時間の設定
+        FadeTime = fadeTime;
 
+        //フェードアウト
+        fader.gameObject.SetActive(true);
+        fader.Play(isFadeOut: false, duration: FadeTime, onFinished: OnFadeOutFinish_Reload);
+
+    }
+    //=============================
+    // フェードありで前シーンに戻る
+    //=============================
+    public void SceneBack_Fade(float fadeTime)
+    {
+        // もし既にフェード状態であれば
+        if (IsFading)
+        {
+            return;
+        }
+
+        //フェード時間の設定
+        FadeTime = fadeTime;
+
+        //フェードアウト
+        fader.gameObject.SetActive(true);
+        fader.Play(isFadeOut: false, duration: FadeTime, onFinished: OnFadeOutFinish_Back);
+    }
     //=========================ここまで。以下他スクリプトからは呼べません
 
-    //==========================
-    // フェードアウト終了
-    //==========================
+    //=====================================
+    // フェードアウト終了①、シーン遷移つき
+    //=====================================
     private void OnFadeOutFinish()
     {
         FadeOutFinished();
@@ -136,6 +167,40 @@ public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
         //シーン名更新
         beforeSceneName = currentSceneName;
         currentSceneName = nextSceneName;
+
+        //フェードイン開始
+        fader.gameObject.SetActive(true);
+        fader.Alpha = 1;
+        fader.Play(isFadeOut: true, duration: FadeTime, onFinished: OnFadeInFinish);
+    }
+    //=====================================
+    // フェードアウト終了②,SceneReload用
+    //=====================================
+    private void OnFadeOutFinish_Reload()
+    {
+        FadeOutFinished();
+
+        //シーン再読み込み
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        //フェードイン開始
+        fader.gameObject.SetActive(true);
+        fader.Alpha = 1;
+        fader.Play(isFadeOut: true, duration: FadeTime, onFinished: OnFadeInFinish);
+    }
+    //=====================================
+    // フェードアウト終了③,SceneBack用
+    //=====================================
+    private void OnFadeOutFinish_Back()
+    {
+        FadeOutFinished();
+
+        // 前シーンのロード
+        SceneManager.LoadScene(beforeSceneName);
+
+        //シーン名更新
+        beforeSceneName = currentSceneName;
+        currentSceneName = beforeSceneName;
 
         //フェードイン開始
         fader.gameObject.SetActive(true);

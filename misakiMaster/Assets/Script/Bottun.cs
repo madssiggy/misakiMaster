@@ -29,25 +29,22 @@ public class Bottun : MonoBehaviour
         isClicked = true;
         Debug.Log("押された");
 
-        //==========================
+        //===============================
         //　Y軸で左にステージが90度傾く
-        //==========================
+        //===============================
         if (ClickSide == false && script.isCamera == false && script.isRotate == false) {
             //trueで左回転
 
             StartCoroutine(FieldScript.RollYL());
-            script.operations(-1);
-
         }
 
-        //==========================
+        //==============================
         //　Y軸で右にステージが90度傾く
-        //==========================
+        //==============================
         if (ClickSide == true && script.isCamera == false && script.isRotate == false) {
             //falseで右回転
    
             StartCoroutine(FieldScript.RollYR());
-            script.operations(-1);
         }
 
     }

@@ -10,22 +10,21 @@ public class manager : MonoBehaviour
     SceneNavigator script;
     //===============================================
     public int cameraRotate;   //true = X軸、false = Z軸
-	public int operate; //操作回数
 
     public bool isRotate = false;
     public bool isCamera = false;
 
-   
+    public GameObject ClearCanvas;
 
     public AudioClip SE;
     public enum Wall
     {
-       Front = 0,
-        Back,
+       Top = 0,
+        Bottom,
         Left,
         Right
     }//前左後右で0~3
-    public int nowFront;  //現在上にある面が何かを保持する
+    public int nowTop;  //現在上にある面が何かを保持する
 
     public enum SlimeSize
     {
@@ -39,6 +38,7 @@ public class manager : MonoBehaviour
     GameObject[] bubble;
 
     public int bubbleNum;
+    public static int CbubbleNum; //シーンまたいでも残る変数
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +49,7 @@ public class manager : MonoBehaviour
 
         
         cameraRotate = 0;
-        nowFront = (int)Wall.Front;
+        nowTop = (int)Wall.Top;
 
         audioSource = GetComponent<AudioSource>();
 
@@ -71,45 +71,43 @@ public class manager : MonoBehaviour
     }
   
 
-    public void SetFront(int ChangeTop,bool rollWay)
+    public void SetTop(int ChangeTop,bool rollWay)
     {
         switch (rollWay)
         {
-            //右クリック,反時計回り
             case true:
                 switch (ChangeTop)
                 {
-                    case (int)Wall.Front:
-                        nowFront = (int)Wall.Left;
+                    case (int)Wall.Top:
+                        nowTop = (int)Wall.Left;
                         break;
-                    case (int)Wall.Back:
-                        nowFront = (int)Wall.Right;
+                    case (int)Wall.Bottom:
+                        nowTop = (int)Wall.Right;
                         break;
                     case (int)Wall.Left:
-                        nowFront = (int)Wall.Back;
+                        nowTop = (int)Wall.Bottom;
                             break;
                     case (int)Wall.Right:
-                        nowFront = (int)Wall.Back;
+                        nowTop = (int)Wall.Top;
                         break;
                     default:break;
                 }
                 break;
 
-                //左クリック
             case false:
                 switch (ChangeTop)
                 {
-                    case (int)Wall.Front:
-                        nowFront = (int)Wall.Right;
+                    case (int)Wall.Top:
+                        nowTop = (int)Wall.Right;
                         break;
-                    case (int)Wall.Back:
-                        nowFront = (int)Wall.Left;
+                    case (int)Wall.Bottom:
+                        nowTop = (int)Wall.Left;
                         break;
                     case (int)Wall.Left:
-                        nowFront = (int)Wall.Front;
+                        nowTop = (int)Wall.Top;
                         break;
                     case (int)Wall.Right:
-                        nowFront = (int)Wall.Back;
+                        nowTop = (int)Wall.Bottom;
                         break;
                     default:
                         break;
@@ -174,12 +172,6 @@ public class manager : MonoBehaviour
 		}
 	}
 
-
-    public void operations(int point)
-	{
-		operate = operate + point;
-	}
-
     public void PlaySE(AudioClip tmp)
     {
         audioSource.PlayOneShot(tmp);
@@ -201,8 +193,15 @@ public class manager : MonoBehaviour
         if (bubbleNum ==0)
         {
             Debug.Log("泡がなくなったぞ。今だセーラムーン" + bubbleNum);
-            SceneManager.LoadScene("SELECT STAGE");
+            //SceneManager.LoadScene("SELECT STAGE");
             //  Debug.Log(tagname + "タグがついたオブジェクトはありません");
+            ClearCanvas.SetActive(true);
         }
+    }
+
+    //げったーロボ
+    public static int GetbubbleNum()
+    {
+        return CbubbleNum;
     }
 }

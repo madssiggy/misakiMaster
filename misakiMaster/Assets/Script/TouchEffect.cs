@@ -18,6 +18,10 @@ public class TouchEffect : MonoBehaviour
     private bool DragFlag;     // ドラッグしはじめのときにtrueにする（連続でParticle.Play()させないため）
     bool touch;
 
+    //音を鳴らす
+    public AudioClip SE_awa;
+    AudioSource audioSource;
+
     // Use this for initialization
     void Start()
     {
@@ -40,6 +44,9 @@ public class TouchEffect : MonoBehaviour
         //タッチ状態管理Managerの取得
         TouchStateManagerObj = GameObject.Find("TouchStateManager");
         TouchStateManagerScript = TouchStateManagerObj.GetComponent<TouchStateManager>();
+
+        //Componentを取得
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -81,6 +88,7 @@ public class TouchEffect : MonoBehaviour
             {
                 if (!DragFlag)
                 {
+                    audioSource.PlayOneShot(SE_awa);
                     Debug.Log("キラキラを出すよ");
                     m_DragParticleSystem.Play();    // ループ再生(Loopingにチェックが入っている)
 

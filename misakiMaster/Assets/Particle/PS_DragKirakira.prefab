@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7463617383274063414}
   - component: {fileID: 1882271764529771519}
   - component: {fileID: 3502545802983460970}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: PS_DragKirakira
   m_TagString: Untagged
   m_Icon: {fileID: 0}

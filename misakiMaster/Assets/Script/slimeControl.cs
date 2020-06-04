@@ -54,28 +54,8 @@ public class slimeControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!isMove && (Input.GetKeyDown(KeyCode.LeftArrow)|| Input.GetKeyDown(KeyCode.RightArrow)))
-        //{
-        //    isMove = true;
-        //    Physics.gravity = new Vector3(0, -10, 0);
-        //}
-        switch (script.nowTop)
-        {
-            case (int)manager.Wall.Top:
-                //処理
-                break;
-            case (int)manager.Wall.Bottom:
-                //処理
-                break;
-            case (int)manager.Wall.Left:
-                //処理
-                break;
-            case (int)manager.Wall.Right:
-                //処理
-                break;
 
-            default:break;
-        }
+  
         
     }
     IEnumerator SlimeMove(Vector3 Move)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4737013083355764964}
   - component: {fileID: 832055489292342949}
   - component: {fileID: 845416508575442750}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: PS_kirakira
   m_TagString: Untagged
   m_Icon: {fileID: 0}
