@@ -17,7 +17,7 @@ public class Medal_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cnum = manager.GetbubbleNum();
+        Cnum = TouchKaisuu.GetOperate();
     }
 
     // Update is called once per frame
