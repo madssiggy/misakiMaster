@@ -42,19 +42,7 @@ public class field : MonoBehaviour
         //マネージャーが持っているmanagerスクリプト
         script = StageManager.GetComponent<manager>();
 
-        //===================
-        //　小スライムの生成
-        //===================
-        for (int i = 0; i < AppearSlimeCount; i++)
-        {
-            script.CreatePrefabAsChild
-            (
-                this.gameObject,
-                SmallSlime, 
-                SpawnSlimePos,
-                SmallSlime.tag
-            );
-        }
+
         targetObj = GameObject.Find("FieldCenter");
         targetPos = targetObj.transform.position;
 

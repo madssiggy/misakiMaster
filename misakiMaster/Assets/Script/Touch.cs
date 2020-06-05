@@ -21,11 +21,15 @@ public class Touch : MonoBehaviour
     //マネージャー読み込み======
     public GameObject managerObj;
     manager managerScript;
-
-    //タッチ回数保存===========
-    public int touchNum;    //touchKaisuu.csで使ってます。スライムを消すタッチをした場合のみプラスされる
-    bool touchFlg;          //スライムを消すタッチであった場合のみtouchNumをプラスする
-    //=======================亀山
+    //====================================
+        //タッチ回数保存===========
+            public int touchNum;    //touchKaisuu.csで使ってます。スライムを消すタッチをした場合のみプラスされる
+            bool touchFlg;          //スライムを消すタッチであった場合のみtouchNumをプラスする
+                                    //=======================
+        //スライム動いて消えるやつ
+           BubbleScript startObjScript;
+    bool isStartBubbleMove;//動かしてよいスライムが動いているか
+    //====================================亀山
 
     //=========================
     // 初期化処理
@@ -66,7 +70,8 @@ public class Touch : MonoBehaviour
                         touchFlg = true;Debug.Log("有効なタッチである");
 
                         // 処理内容はslimeControl.csのBigSlimeClickAct()の中
-                        hit.collider.gameObject.GetComponent<slimeControl>().SlimeDestroy(new Vector3(0,0,0));
+                        hit.collider.gameObject.GetComponent<slimeControl>().SlimeDestroy(new Vector3(0, 0, 0));
+                        managerScript.CheckBubble();
                     }
                     //　小、中スライムにRayがぶつかった時
                     else if (hit.collider.gameObject.CompareTag("MiddleSlime") ||
@@ -98,50 +103,21 @@ public class Touch : MonoBehaviour
 
                 if (remove_cnt == 2)
                 {
-                    //中スライムが消された場合
-                    if (startObj.CompareTag("MiddleSlime"))
-                    {
-                        Debug.Log("親：" + startObj.transform.parent.gameObject);
-                        GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInBIg");
-                        //プレハブを元に、インスタンスを生成
-                        GameObject tmp=Instantiate(obj, 
-                                    new Vector3
-                                    (
-                                       (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
-                                       (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
-                                       (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
-                                     ),
-                                      Quaternion.Euler(CreateBigSlimeQuarternion()));
-                        //生成したプレハブをFieldCenterに登録する。
-                        tmp.transform.parent = GameObject.Find("FieldCenter").transform;
-                        Debug.Log("終点側に大スライムを生成");
-                        touchFlg = true;Debug.Log("有効なタッチである");
-                    
+                    if (startObj.CompareTag("MiddleSlime")) {
+                        CreateBigBubble();
                     }
-                    //小スライムが消された場合
-                    else if (startObj.CompareTag("SmallSlime"))
-                    {
-                     
-                        GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInMid");
-                        //プレハブを元に、インスタンスを生成
-                       GameObject tmp= Instantiate(obj,
-                                    new Vector3
-                                    (
-                                       (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
-                                       (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
-                                       (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
-                                     ),
-                                      Quaternion.Euler(CreateSlimeQuarternion()));
-                        //生成したプレハブをFieldCenterに登録する。
-                        tmp.transform.parent = GameObject.Find("FieldCenter").transform;
-                        Debug.Log("終点側に中スライムを生成");
-                        touchFlg = true;Debug.Log("有効なタッチである");
-          
+//小スライムが消された場合
+else if (startObj.CompareTag("SmallSlime")) {
+
+                        CreateMiddleBubble();
+
                     }
 
                     GameObject.Destroy(startObj);
                     GameObject.Destroy(endObj);
-                    //          startObj.GetComponent<slimeControl>().DestroyAnimation(startObj.transform.position - endObj.transform.position);
+               
+
+                  //  startObj.GetComponent<slimeControl>().BubbleMove(Vector3.Normalize(startObj.transform.position - endObj.transform.position));
 
                     // スコアと消えるときの音はここ↓※これは昔つくったやーつ
 
@@ -202,8 +178,24 @@ public class Touch : MonoBehaviour
       
                 
         }
+        //if (managerScript.isBubbleDestroy==true) {
+        //    //中スライムが消された場合
+        //    if (startObj.CompareTag("MiddleSlime")) {
+        //        CreateBigBubble();
+        //    }
+        //    //小スライムが消された場合
+        //    else if (startObj.CompareTag("SmallSlime")) {
+
+        //        CreateMiddleBubble();
+
+        //    }
+
+        //    GameObject.Destroy(startObj);
+        //    GameObject.Destroy(endObj);
+        //}
         if (touchFlg == true)
         {
+            //ここに中小のスライム削除、スライム生成を移す
             touchNum++;
             managerScript.CheckBubble();
             touchFlg = false;
@@ -291,4 +283,44 @@ public class Touch : MonoBehaviour
         return startObj.transform.position;
     }
 
+    void CreateMiddleBubble()
+    {
+        GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInMid");
+        //生成したプレハブをFieldCenterに登録する。
+        GameObject tmp = null;
+
+        //プレハブを元に、インスタンスを生成
+        tmp = Instantiate(obj,
+                   new Vector3
+                   (
+                      (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
+                      (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
+                      (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
+                    ),
+                     Quaternion.Euler(CreateSlimeQuarternion()));
+        tmp.transform.parent = GameObject.Find("FieldCenter").transform;
+        Debug.Log("終点側に中スライムを生成");
+        touchFlg = true;
+        Debug.Log("有効なタッチである");
+    }
+    void CreateBigBubble()
+    {
+        Debug.Log("親：" + startObj.transform.parent.gameObject);
+        GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInBIg");
+        //プレハブを元に、インスタンスを生成
+        GameObject tmp = Instantiate(obj,
+                    new Vector3
+                    (
+                       (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
+                       (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
+                       (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
+                     ),
+                      Quaternion.Euler(CreateBigSlimeQuarternion()));
+        //生成したプレハブをFieldCenterに登録する。
+        tmp.transform.parent = GameObject.Find("FieldCenter").transform;
+        Debug.Log("終点側に大スライムを生成");
+        touchFlg = true;
+        Debug.Log("有効なタッチである");
+
+    }
 }
