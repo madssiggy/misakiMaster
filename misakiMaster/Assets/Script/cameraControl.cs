@@ -95,6 +95,7 @@ public class cameraControl : MonoBehaviour
 
         //回転中のフラグを倒す
         script.isRotate = false;
+        script.SetFront(script.nowFront, false);
         Mathf.Ceil(transform.rotation.x);
         Mathf.Ceil(transform.rotation.y);
         Mathf.Ceil(transform.rotation.z);
@@ -130,6 +131,7 @@ public class cameraControl : MonoBehaviour
         BottunScriptR.SetisClicked(false);
         //回転中のフラグを倒す
         script.isRotate = false;
+        script.SetFront(script.nowFront, true);
         Mathf.Ceil(transform.rotation.x);
         Mathf.Ceil(transform.rotation.y);
         Mathf.Ceil(transform.rotation.z);

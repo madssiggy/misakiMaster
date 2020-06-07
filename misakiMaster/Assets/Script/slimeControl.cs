@@ -14,7 +14,11 @@ public class slimeControl : MonoBehaviour
     //SE用変数
     private AudioClip sound1;
     private AudioClip sound2;
+    bool canMove;
 
+    Vector3 Way;
+    GameObject end;
+    Vector3 Quarternion;
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,8 +41,9 @@ public class slimeControl : MonoBehaviour
         Mathf.Ceil(transform.rotation.y);
         Mathf.Ceil(transform.rotation.z);
 
+        canMove = false;
 
-
+        Quarternion = new Vector3(0, 0, 0);
     }
    
     //スライムをぶっこわす
@@ -46,7 +51,7 @@ public class slimeControl : MonoBehaviour
     {
 
         
-        StartCoroutine(SlimeMove(MoveWay));
+      //  StartCoroutine(SlimeMove(MoveWay));
         Destroy(gameObject.transform.parent.gameObject);
 
      
@@ -54,18 +59,21 @@ public class slimeControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-  
+        if(canMove==true)
+       gameObject.transform.Translate(Way);
         
     }
-    IEnumerator SlimeMove(Vector3 Move)
-    { int time = 0;
-        do {
-            gameObject.transform.position += Move;
-            time++;
-            yield return null;
-        } while (time == 10);
-        yield break;
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Way = new Vector3(0, 0, 0);
+        Touch TouchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
+        TouchScript.SetStartAndEnd(this.gameObject,collision.gameObject);
+        TouchScript.CreateSlime(this.gameObject.tag);
+        Destroy(collision.gameObject.transform.parent.gameObject);
+
+        Destroy(this.transform.parent.gameObject);
+    
+
     }
     //private void OnCollisionEnter(Collision collision)
     //{
@@ -78,19 +86,19 @@ public class slimeControl : MonoBehaviour
     //                script.PlaySE();
     //                Destroy(this.gameObject);
     //                FindObjectOfType<Score>().AddPoint(10);
-   
+
     //                break;
     //            case "MiddleSlime":
     //                script.PlaySE();
     //              //  script.CreateSlime((int)manager.SlimeSize.middle, this.gameObject);
     //                FindObjectOfType<Score>().AddPoint(10);
-                    
+
     //                break;
     //            case "SmallSlime:":
     //                script.PlaySE();
     //         //       script.CreateSlime((int)manager.SlimeSize.small, this.gameObject);
     //                FindObjectOfType<Score>().AddPoint(10);
-                   
+
     //                break;
     //            default:
     //                break;
@@ -175,23 +183,39 @@ public class slimeControl : MonoBehaviour
     //     }
     // }
 
-   //public void DestroyAnimation(Vector3 Way)
-   // {
-   //     GetComponent<BoxCollider>().isTrigger=true;
-   //     Vector3 size = gameObject.transform.localScale;
-   //     float bairitu = 1.00f;
- 
-   //     gameObject.transform.localScale = size;
-   //     GetComponent<BoxCollider>().isTrigger = false;
-   //     gameObject.transform.position += Way/10f;
+    //public void DestroyAnimation(Vector3 Way)
+    // {
+    //     GetComponent<BoxCollider>().isTrigger=true;
+    //     Vector3 size = gameObject.transform.localScale;
+    //     float bairitu = 1.00f;
 
-   // }
-   //IEnumerator Fusion()
-   // {
-   //     do {
+    //     gameObject.transform.localScale = size;
+    //     GetComponent<BoxCollider>().isTrigger = false;
+    //     gameObject.transform.position += Way/10f;
 
-   //         yield return null;
-   //     } while (1);
-   //     yield break;
-   // }
+    // }
+    //IEnumerator Fusion()
+    // {
+    //     do {
+
+    //         yield return null;
+    //     } while (1);
+    //     yield break;
+    // }
+    public void Test()
+    {
+        Debug.Log("テスト配信成功？＝＝＝＝＝＝＝＝＝"+gameObject);
+    }
+
+    public void goSign(GameObject endObj)
+    {
+        Debug.Log("Start="+gameObject+"end="+endObj+"================================================-");
+        Way =Vector3.Normalize( -transform.position+endObj.transform.position);
+        canMove = true;
+        end = endObj;
+    }
+    public void SetQuarternion(Vector3 Vec)
+    {
+        Quarternion = Vec;
+    }
     }

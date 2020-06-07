@@ -29,6 +29,8 @@ public class Touch : MonoBehaviour
         //スライム動いて消えるやつ
            BubbleScript startObjScript;
     bool isStartBubbleMove;//動かしてよいスライムが動いているか
+    Vector3 CreatePosition;
+    bool canCreate;
     //====================================亀山
 
     //=========================
@@ -42,7 +44,7 @@ public class Touch : MonoBehaviour
 
         managerObj = GameObject.Find("StageManager");
         managerScript = managerObj.GetComponent<manager>();
-     
+        canCreate = false;
     }
 
     //=========================
@@ -74,7 +76,7 @@ public class Touch : MonoBehaviour
                         managerScript.CheckBubble();
                     }
                     //　小、中スライムにRayがぶつかった時
-                    else if (hit.collider.gameObject.CompareTag("MiddleSlime") ||
+                    else if (hit.collider.gameObject.CompareTag("MiddleSlimeTate")|| hit.collider.gameObject.CompareTag("MiddleSlimeYoko") ||
                              hit.collider.gameObject.CompareTag("SmallSlime"))
                     {
                         currentName = hit.collider.gameObject.tag;
@@ -84,6 +86,8 @@ public class Touch : MonoBehaviour
                         // スライムオブジェクトを格納
                         startObj = hit.collider.transform.parent.gameObject;
                         endObj = hit.collider.transform.parent.gameObject;
+                        
+           
 
                         // 削除対象オブジェクトリストの初期化
                         removableSlimeList = new List<GameObject>();
@@ -104,17 +108,17 @@ public class Touch : MonoBehaviour
                 if (remove_cnt == 2)
                 {
                     if (startObj.CompareTag("MiddleSlime")) {
-                        CreateBigBubble();
+                 //       CreateBigBubble();
                     }
 //小スライムが消された場合
 else if (startObj.CompareTag("SmallSlime")) {
 
-                        CreateMiddleBubble();
+                 //       CreateMiddleBubble();
 
                     }
 
-                    GameObject.Destroy(startObj);
-                    GameObject.Destroy(endObj);
+          //          GameObject.Destroy(startObj);
+             //       GameObject.Destroy(endObj);
                
 
                   //  startObj.GetComponent<slimeControl>().BubbleMove(Vector3.Normalize(startObj.transform.position - endObj.transform.position));
@@ -151,6 +155,7 @@ else if (startObj.CompareTag("SmallSlime")) {
                         // 同じタグのブロックをクリック＆endObjとは別オブジェクトである時
                         if (hitObj.tag == currentName && endObj != hitObj)
                         {
+                   
                             Debug.Log("同タグの別オブジェクトが選択された");
                             // ２つのオブジェクトの距離を取得
                             float distance = Vector2.Distance(hitObj.transform.position, endObj.transform.position);
@@ -160,13 +165,26 @@ else if (startObj.CompareTag("SmallSlime")) {
                                 Debug.Log("z値を取得し比較");
                                 // zが同じであれば
                                 
-                                if (Mathf.Floor(Mathf.Abs(startObj.transform.parent.position.z))/(MaxDistance/2) == Mathf.Floor(Mathf.Abs(hitObj.transform.parent.position.z)) /(MaxDistance/2)
-                                    &&    startObj.transform.rotation.z == hitObj.transform.rotation.z)
+                                if (Mathf.Floor(Mathf.Abs(startObj.transform.parent.position.z))/(MaxDistance/2) == 
+                                    Mathf.Floor(Mathf.Abs(hitObj.transform.parent.position.z)) /(MaxDistance/2)
+                                    &&    startObj.transform.rotation.z == hitObj.transform.rotation.z
+                                )
                                 {
                                     Debug.Log("削除します");
 
                                     // 削除対象のオブジェクトを格納
                                     endObj = hitObj;
+                                    startObj.GetComponent<slimeControl>().goSign(endObj);
+                                    if (startObj.CompareTag("MiddleSlimeTate")|| startObj.CompareTag("MiddleSlimeYoko")) {
+                                        startObj.GetComponent<slimeControl>().SetQuarternion(CreateBigSlimeQuarternion());
+                                    }
+                                    //小スライムが消された場合
+                                    else if (startObj.CompareTag("SmallSlime")) {
+
+                                        startObj.GetComponent<slimeControl>().SetQuarternion(CreateSlimeQuarternion());
+
+                                    }
+                                    CreatePosition = ((startObj.transform.localPosition + endObj.transform.localPosition)/2);
                                     // 削除対象のオブジェクトを格納
                                     PushToList(hitObj);
                                 }
@@ -233,20 +251,21 @@ else if (startObj.CompareTag("SmallSlime")) {
             prefRotate.y = 90;
         
         //位置取得。
-        if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
-            Mathf.Floor(compared.x) / (MaxDistance / 2)) {
-            //縦長スライム生成
-            prefRotate.z = 90;
-        } else if (Mathf.Floor(compare.y) / (MaxDistance / 2) ==
-            Mathf.Floor(compared.y) / (MaxDistance / 2)) {
-            //横長スライム生成
-            prefRotate.z = 0;
-        }
+        //if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
+        //    Mathf.Floor(compared.x) / (MaxDistance / 2)) {
+        //    //縦長スライム生成
+        //    prefRotate.z = 90;
+        //} else if (Mathf.Floor(compare.y) / (MaxDistance / 2) ==
+        //    Mathf.Floor(compared.y) / (MaxDistance / 2)) {
+        //    //横長スライム生成
+        //    prefRotate.z = 0;
+        //}
    
             prefRotate.y = startObj.transform.parent.transform.rotation.y;
         
         return prefRotate;
     }
+
     Vector3 CreateBigSlimeQuarternion()
     {
         Vector3 Return;
@@ -254,25 +273,30 @@ else if (startObj.CompareTag("SmallSlime")) {
         Vector3 compared = startObj.transform.position;
         Vector3 compare = endObj.transform.position;
         int nowFront = managerScript.nowFront;
-        if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
-         Mathf.Floor(compared.x) / (MaxDistance / 2)) {
-            //縦長スライム生成
-           Return.z = 90;
-        } else {
-            Return.z = 0;
+        //if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
+        // Mathf.Floor(compared.x) / (MaxDistance / 2)) {
+        //    //縦長スライム生成
+        //   Return.z = 90;
+        //} else {
+        //    Return.z = 0;
+        //}
+        if (startObj.tag == "MiddleSlimeTate") {
+            switch (nowFront) {
+                case (int)manager.Wall.Left:
+                case (int)manager.Wall.Right:
+                    Return.y = 90f;
+                    break;
+                case (int)manager.Wall.Front:
+                case (int)manager.Wall.Back:
+                default:
+                    Return.y = 0f;
+                    break;
+            }
+        } else if (startObj.tag == "MiddleSlimeYoko") {
+            Return.y = 0f;
         }
-
-        switch (nowFront) {
-            case (int)manager.Wall.Left:
-            case (int)manager.Wall.Right:
-                Return.y = 90f;
-                break;
-            case (int)manager.Wall.Front:
-            case (int)manager.Wall.Back:
-            default:
-                Return.y = 0f;
-                break;
-        }
+        
+      
 
 
         return Return;
@@ -283,20 +307,36 @@ else if (startObj.CompareTag("SmallSlime")) {
         return startObj.transform.position;
     }
 
+    int Create = 0;
+    public void CreateSlime(string tag)
+    {
+        Create++;
+        Debug.Log("Touch.Cs.CreateSlime::Create=" + Create+"==============================================");
+        if (Create == 2) {
+            if (tag == "MiddleSlimeTate"|| tag == "MiddleSlimeYoko")
+                CreateBigBubble();
+            else if (tag == "SmallSlime")
+                CreateMiddleBubble();
+            Create = 0;
+        }
+    }
+    
     void CreateMiddleBubble()
     {
-        GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInMid");
+        string PrefPath = null;
+        //  if (startObj.transform.localPosition.x == endObj.transform.localPosition.x)
+        if(Mathf.Abs(CreatePosition.x)>=Mathf.Abs(CreatePosition.y))
+        PrefPath = "Prefab/Fields/FieldInMidTate";
+    //    else if(startObj.transform.localPosition.y == endObj.transform.localPosition.y)
+    else if(Mathf.Abs(CreatePosition.x) <= Mathf.Abs(CreatePosition.y))
+            PrefPath = "Prefab/Fields/FieldInMidYoko";
+        GameObject obj = (GameObject)Resources.Load(PrefPath);
         //生成したプレハブをFieldCenterに登録する。
         GameObject tmp = null;
-
+        Debug.Log("スタート位置:"+startObj.transform.localPosition + "エンド位置:"+endObj.transform.localPosition+"発生予定位置:"+CreatePosition);
         //プレハブを元に、インスタンスを生成
         tmp = Instantiate(obj,
-                   new Vector3
-                   (
-                      (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
-                      (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
-                      (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
-                    ),
+          CreatePosition,
                      Quaternion.Euler(CreateSlimeQuarternion()));
         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
         Debug.Log("終点側に中スライムを生成");
@@ -305,16 +345,12 @@ else if (startObj.CompareTag("SmallSlime")) {
     }
     void CreateBigBubble()
     {
+        Debug.Log("スタート位置:" + startObj.transform.localPosition + "エンド位置:" + endObj.transform.localPosition + "発生予定位置:" + CreatePosition);
         Debug.Log("親：" + startObj.transform.parent.gameObject);
         GameObject obj = (GameObject)Resources.Load("Prefab/Fields/FieldInBIg");
         //プレハブを元に、インスタンスを生成
         GameObject tmp = Instantiate(obj,
-                    new Vector3
-                    (
-                       (int)(startObj.transform.localPosition.x + endObj.transform.localPosition.x) / 2,
-                       (int)(startObj.transform.localPosition.y + endObj.transform.localPosition.y) / 2,
-                       (int)(startObj.transform.localPosition.z + endObj.transform.localPosition.z) / 2
-                     ),
+        CreatePosition,
                       Quaternion.Euler(CreateBigSlimeQuarternion()));
         //生成したプレハブをFieldCenterに登録する。
         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
@@ -322,5 +358,10 @@ else if (startObj.CompareTag("SmallSlime")) {
         touchFlg = true;
         Debug.Log("有効なタッチである");
 
+    }
+   public void SetStartAndEnd(GameObject start,GameObject end)
+    {
+        startObj = start;
+        endObj = end;
     }
 }
