@@ -243,13 +243,25 @@ else if (startObj.CompareTag("SmallSlime")) {
         //角度別スライム生成
         Vector3 compared = startObj.transform.position;
         Vector3 compare = endObj.transform.position;
-        Vector3 prefRotate = new Vector3(0, 0, 0);
-
-        if (managerScript.cameraRotate % 2 == 0)
-            prefRotate.y = 0;
-        else
-            prefRotate.y = 90;
-        
+        Vector3 Return;
+        Return = new Vector3(0, 0, 0);
+        //if (managerScript.cameraRotate % 2 == 0)
+        //    prefRotate.y = 0;
+        //else
+        //    prefRotate.y = 90;
+        int nowFront = managerScript.nowFront;
+        switch (nowFront) {
+                case (int)manager.Wall.Left:
+                case (int)manager.Wall.Right:
+                    Return.y = 90f;
+                    break;
+                case (int)manager.Wall.Front:
+                case (int)manager.Wall.Back:
+                default:
+                    Return.y = 0f;
+                    break;
+            }
+      
         //位置取得。
         //if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
         //    Mathf.Floor(compared.x) / (MaxDistance / 2)) {
@@ -260,10 +272,10 @@ else if (startObj.CompareTag("SmallSlime")) {
         //    //横長スライム生成
         //    prefRotate.z = 0;
         //}
-   
-            prefRotate.y = startObj.transform.parent.transform.rotation.y;
+
+    //    Return.y = startObj.transform.parent.transform.rotation.y;
         
-        return prefRotate;
+        return Return;
     }
 
     Vector3 CreateBigSlimeQuarternion()
@@ -325,11 +337,26 @@ else if (startObj.CompareTag("SmallSlime")) {
     {
         string PrefPath = null;
         //  if (startObj.transform.localPosition.x == endObj.transform.localPosition.x)
-        if(Mathf.Abs(CreatePosition.x)>=Mathf.Abs(CreatePosition.y))
-        PrefPath = "Prefab/Fields/FieldInMidTate";
-    //    else if(startObj.transform.localPosition.y == endObj.transform.localPosition.y)
-    else if(Mathf.Abs(CreatePosition.x) <= Mathf.Abs(CreatePosition.y))
+        if (Mathf.Abs(CreatePosition.x) > Mathf.Abs(CreatePosition.y)) {
             PrefPath = "Prefab/Fields/FieldInMidYoko";
+            Debug.Log("x>y,Yoko");
+        }
+        else if(Mathf.Abs(CreatePosition.x) < Mathf.Abs(CreatePosition.y)) {
+            PrefPath = "Prefab/Fields/FieldInMidTate";
+            Debug.Log("x<y,tate");
+        }
+
+
+        if (Mathf.Abs(CreatePosition.z) > Mathf.Abs(CreatePosition.y)) {
+            PrefPath = "Prefab/Fields/FieldInMidYoko";
+            Debug.Log("z>y,Tate");
+        }
+        else if (Mathf.Abs(CreatePosition.z) < Mathf.Abs(CreatePosition.y)) {
+            PrefPath = "Prefab/Fields/FieldInMidYoko";
+            Debug.Log("z<y,Yoko");
+        }
+
+
         GameObject obj = (GameObject)Resources.Load(PrefPath);
         //生成したプレハブをFieldCenterに登録する。
         GameObject tmp = null;

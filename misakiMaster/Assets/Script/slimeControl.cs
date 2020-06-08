@@ -218,4 +218,9 @@ public class slimeControl : MonoBehaviour
     {
         Quarternion = Vec;
     }
+    public Vector3 GetWay()
+    {
+        Debug.Log("Way="+Way+"===========================================");
+       return Way;
     }
+}
