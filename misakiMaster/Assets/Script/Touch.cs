@@ -335,26 +335,36 @@ else if (startObj.CompareTag("SmallSlime")) {
     
     void CreateMiddleBubble()
     {
+        int nowFront = managerScript.nowFront;
         string PrefPath = null;
+        switch (nowFront) {
+            case (int)manager.Wall.Left:
+            case (int)manager.Wall.Right:
+                if (Mathf.Abs(CreatePosition.z) > Mathf.Abs(CreatePosition.y)) {
+                    PrefPath = "Prefab/Fields/FieldInMidYoko";
+                    Debug.Log("z>y,Tate");
+                } else if (Mathf.Abs(CreatePosition.z) < Mathf.Abs(CreatePosition.y)) {
+                    PrefPath = "Prefab/Fields/FieldInMidYoko";
+                    Debug.Log("z<y,Yoko");
+                }
+                break;
+            case (int)manager.Wall.Front:
+            case (int)manager.Wall.Back:
+            default:
+                if (Mathf.Abs(CreatePosition.x) < Mathf.Abs(CreatePosition.y)) {
+                    PrefPath = "Prefab/Fields/FieldInMidYoko";
+                    Debug.Log("x>y,Yoko");
+                } else if (Mathf.Abs(CreatePosition.x) > Mathf.Abs(CreatePosition.y)) {
+                    PrefPath = "Prefab/Fields/FieldInMidTate";
+                    Debug.Log("x<y,tate");
+                }
+                break;
+        }
         //  if (startObj.transform.localPosition.x == endObj.transform.localPosition.x)
-        if (Mathf.Abs(CreatePosition.x) > Mathf.Abs(CreatePosition.y)) {
-            PrefPath = "Prefab/Fields/FieldInMidYoko";
-            Debug.Log("x>y,Yoko");
-        }
-        else if(Mathf.Abs(CreatePosition.x) < Mathf.Abs(CreatePosition.y)) {
-            PrefPath = "Prefab/Fields/FieldInMidTate";
-            Debug.Log("x<y,tate");
-        }
 
 
-        if (Mathf.Abs(CreatePosition.z) > Mathf.Abs(CreatePosition.y)) {
-            PrefPath = "Prefab/Fields/FieldInMidYoko";
-            Debug.Log("z>y,Tate");
-        }
-        else if (Mathf.Abs(CreatePosition.z) < Mathf.Abs(CreatePosition.y)) {
-            PrefPath = "Prefab/Fields/FieldInMidYoko";
-            Debug.Log("z<y,Yoko");
-        }
+
+
 
 
         GameObject obj = (GameObject)Resources.Load(PrefPath);
