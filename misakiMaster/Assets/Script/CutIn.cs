@@ -6,8 +6,8 @@ public class CutIn : MonoBehaviour
 {
     RectTransform meganepos;
     Vector3 Pos;
-    public int Speed;
-    public int Accel;
+    public float Speed;
+    public float Accel;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +32,7 @@ public class CutIn : MonoBehaviour
     }
     IEnumerator CutInMode()
     {
-        int Move = Speed;
+        float Move = Speed;
         float x=300f;
         do {
             x -= Move;
@@ -54,7 +54,7 @@ public class CutIn : MonoBehaviour
             yield return null;
         } while (x >= -300f);
         Destroy(GameObject.Find("CutInBoard"));
-        Destroy(this.gameObject);
+        Destroy(this.gameObject.transform.root.gameObject);
         
         yield break;
     }

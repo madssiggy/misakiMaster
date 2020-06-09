@@ -195,7 +195,8 @@ else if (startObj.CompareTag("SmallSlime")) {
                                             }
                                         }
 
-                                        if ((ObjTag == "MiddleSlimeTate") && (startObj.transform.position.y == endObj.transform.position.y))
+                                        if ((ObjTag == "MiddleSlimeTate") && 
+                                            (startObj.transform.position.y == endObj.transform.position.y))
                                             canBubbleAct = true;
                                         if (canBubbleAct == true) {
                                             startObj.GetComponent<slimeControl>().goSign(endObj);

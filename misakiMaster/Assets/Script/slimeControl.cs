@@ -67,7 +67,7 @@ public class slimeControl : MonoBehaviour
                 script.GetNowFront() == (int)manager.Wall.Right) {
                 gameObject.transform.Translate(Way,Space.World);
             } else {
-                gameObject.transform.Translate(Way, Space.World);
+                gameObject.transform.Translate(Way);
             }
             
         }
@@ -81,6 +81,7 @@ public class slimeControl : MonoBehaviour
         TouchScript.SetStartAndEnd(this.gameObject,collision.gameObject);
    //     TouchScript.setStartMoveWay(Way);
         TouchScript.CreateSlime(this.gameObject.tag);
+        Debug.Log(this.gameObject.tag+"=============================================================");
         Destroy(collision.gameObject.transform.parent.gameObject);
 
         Destroy(this.transform.parent.gameObject);
