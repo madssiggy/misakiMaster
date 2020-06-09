@@ -2646,6 +2646,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7751804000194902985, guid: 268492a4e234c5249b0c3e1c55963499,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7751804000233733119, guid: 268492a4e234c5249b0c3e1c55963499,
         type: 3}
       propertyPath: ClearCanvas

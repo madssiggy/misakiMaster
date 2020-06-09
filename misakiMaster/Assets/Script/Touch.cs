@@ -358,7 +358,7 @@ else if (startObj.CompareTag("SmallSlime")) {
                     PrefPath = "Prefab/Fields/FieldInMidYoko";
                     Debug.Log("z>y,Tate");
                 } else if (Mathf.Abs(startMoveWay.z) > Mathf.Abs(startMoveWay.y)) {
-                    PrefPath = "Prefab/Fields/FieldInMidYoko";
+                    PrefPath = "Prefab/Fields/FieldInMidTate";
                     Debug.Log("z<y,Yoko");
                 }
                 break;
