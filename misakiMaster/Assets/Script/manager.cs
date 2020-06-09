@@ -198,4 +198,8 @@ public class manager : MonoBehaviour
             ClearCanvas.SetActive(true);
         }
     }
+    public int GetNowFront()
+    {
+        return (int)nowFront;
+    }
 }

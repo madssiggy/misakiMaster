@@ -62,8 +62,16 @@ public class slimeControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canMove==true)
-       gameObject.transform.Translate(Way);
+        if (canMove == true) {
+            if(script.GetNowFront()==(int)manager.Wall.Left||
+                script.GetNowFront() == (int)manager.Wall.Right) {
+                gameObject.transform.Translate(Way,Space.World);
+            } else {
+                gameObject.transform.Translate(Way, Space.World);
+            }
+            
+        }
+
      //   TManager.setStartMoveWay(Way);
     }
     private void OnCollisionEnter(Collision collision)
