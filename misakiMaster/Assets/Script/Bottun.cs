@@ -37,19 +37,21 @@ public class Bottun : MonoBehaviour
         //===============================
         //　Y軸で左にステージが90度傾く
         //===============================
-        if (ClickSide == false && script.isCamera == false && script.isRotate == false) {
+        if (ClickSide == false && script.isCamera == false && script.isRotate == false
+         ) {
             //trueで左回転
 
-            StartCoroutine(cameraScript.RollYL());
+            StartCoroutine(cameraScript.RollYR());
         }
 
         //==============================
         //　Y軸で右にステージが90度傾く
         //==============================
-        if (ClickSide == true && script.isCamera == false && script.isRotate == false) {
+        if (ClickSide == true && script.isCamera == false && script.isRotate == false
+            ) {
             //falseで右回転
    
-            StartCoroutine(cameraScript.RollYR());
+            StartCoroutine(cameraScript.RollYL());
         }
 
     }
