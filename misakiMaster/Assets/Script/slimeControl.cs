@@ -19,6 +19,8 @@ public class slimeControl : MonoBehaviour
     Vector3 Way;
     GameObject end;
     Vector3 Quarternion;
+
+    Touch TManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -44,6 +46,7 @@ public class slimeControl : MonoBehaviour
         canMove = false;
 
         Quarternion = new Vector3(0, 0, 0);
+        TManager = GameObject.Find("TouchManager").GetComponent<Touch>();
     }
    
     //スライムをぶっこわす
@@ -61,13 +64,14 @@ public class slimeControl : MonoBehaviour
     {
         if(canMove==true)
        gameObject.transform.Translate(Way);
-        
+     //   TManager.setStartMoveWay(Way);
     }
     private void OnCollisionEnter(Collision collision)
     {
         // Way = new Vector3(0, 0, 0);
         Touch TouchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
         TouchScript.SetStartAndEnd(this.gameObject,collision.gameObject);
+   //     TouchScript.setStartMoveWay(Way);
         TouchScript.CreateSlime(this.gameObject.tag);
         Destroy(collision.gameObject.transform.parent.gameObject);
 

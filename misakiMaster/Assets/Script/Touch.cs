@@ -31,6 +31,7 @@ public class Touch : MonoBehaviour
     bool isStartBubbleMove;//動かしてよいスライムが動いているか
     Vector3 CreatePosition;
     bool canCreate;
+    Vector3 startMoveWay;
     //====================================亀山
 
     //=========================
@@ -45,6 +46,7 @@ public class Touch : MonoBehaviour
         managerObj = GameObject.Find("StageManager");
         managerScript = managerObj.GetComponent<manager>();
         canCreate = false;
+        startMoveWay=new Vector3(0,0,0);
     }
 
     //=========================
@@ -175,6 +177,7 @@ else if (startObj.CompareTag("SmallSlime")) {
                                     // 削除対象のオブジェクトを格納
                                     endObj = hitObj;
                                     startObj.GetComponent<slimeControl>().goSign(endObj);
+                                    startMoveWay =Vector3.Normalize( endObj.transform.position - startObj.transform.position);
                                     if (startObj.CompareTag("MiddleSlimeTate")|| startObj.CompareTag("MiddleSlimeYoko")) {
                                         startObj.GetComponent<slimeControl>().SetQuarternion(CreateBigSlimeQuarternion());
                                     }
@@ -252,14 +255,18 @@ else if (startObj.CompareTag("SmallSlime")) {
         int nowFront = managerScript.nowFront;
         switch (nowFront) {
                 case (int)manager.Wall.Left:
-                case (int)manager.Wall.Right:
-                    Return.y = 90f;
+                Return.y = 90f;
+                break;
+            case (int)manager.Wall.Right:
+                    Return.y = 270f;
                     break;
                 case (int)manager.Wall.Front:
-                case (int)manager.Wall.Back:
+                Return.y = 0f;
+                break;
+            case (int)manager.Wall.Back:
                 default:
-                    Return.y = 0f;
-                    break;
+                Return.y = 180f;
+                break;
             }
       
         //位置取得。
@@ -295,13 +302,17 @@ else if (startObj.CompareTag("SmallSlime")) {
         if (startObj.tag == "MiddleSlimeTate") {
             switch (nowFront) {
                 case (int)manager.Wall.Left:
-                case (int)manager.Wall.Right:
                     Return.y = 90f;
                     break;
+                case (int)manager.Wall.Right:
+                    Return.y = 270f;
+                    break;
                 case (int)manager.Wall.Front:
+                    Return.y = 0f;
+                    break;
                 case (int)manager.Wall.Back:
                 default:
-                    Return.y = 0f;
+                    Return.y = 180f;
                     break;
             }
         } else if (startObj.tag == "MiddleSlimeYoko") {
@@ -335,15 +346,18 @@ else if (startObj.CompareTag("SmallSlime")) {
     
     void CreateMiddleBubble()
     {
+      
         int nowFront = managerScript.nowFront;
+        slimeControl slc = endObj.GetComponent<slimeControl>();
+        Debug.Log("Way" + startMoveWay+"========================================");
         string PrefPath = null;
         switch (nowFront) {
             case (int)manager.Wall.Left:
             case (int)manager.Wall.Right:
-                if (Mathf.Abs(CreatePosition.z) > Mathf.Abs(CreatePosition.y)) {
+                if (Mathf.Abs(startMoveWay.z) < Mathf.Abs(startMoveWay.y)) {
                     PrefPath = "Prefab/Fields/FieldInMidYoko";
                     Debug.Log("z>y,Tate");
-                } else if (Mathf.Abs(CreatePosition.z) < Mathf.Abs(CreatePosition.y)) {
+                } else if (Mathf.Abs(startMoveWay.z) > Mathf.Abs(startMoveWay.y)) {
                     PrefPath = "Prefab/Fields/FieldInMidYoko";
                     Debug.Log("z<y,Yoko");
                 }
@@ -351,10 +365,10 @@ else if (startObj.CompareTag("SmallSlime")) {
             case (int)manager.Wall.Front:
             case (int)manager.Wall.Back:
             default:
-                if (Mathf.Abs(CreatePosition.x) < Mathf.Abs(CreatePosition.y)) {
+                if (Mathf.Abs(startMoveWay.x) > Mathf.Abs(startMoveWay.y)) {
                     PrefPath = "Prefab/Fields/FieldInMidYoko";
                     Debug.Log("x>y,Yoko");
-                } else if (Mathf.Abs(CreatePosition.x) > Mathf.Abs(CreatePosition.y)) {
+                } else if (Mathf.Abs(startMoveWay.x) < Mathf.Abs(startMoveWay.y)) {
                     PrefPath = "Prefab/Fields/FieldInMidTate";
                     Debug.Log("x<y,tate");
                 }
@@ -370,7 +384,7 @@ else if (startObj.CompareTag("SmallSlime")) {
         GameObject obj = (GameObject)Resources.Load(PrefPath);
         //生成したプレハブをFieldCenterに登録する。
         GameObject tmp = null;
-        Debug.Log("スタート位置:"+startObj.transform.localPosition + "エンド位置:"+endObj.transform.localPosition+"発生予定位置:"+CreatePosition);
+ //       Debug.Log("スタート位置:"+startObj.transform.localPosition + "エンド位置:"+endObj.transform.localPosition+"発生予定位置:"+CreatePosition);
         //プレハブを元に、インスタンスを生成
         tmp = Instantiate(obj,
           CreatePosition,
@@ -400,5 +414,9 @@ else if (startObj.CompareTag("SmallSlime")) {
     {
         startObj = start;
         endObj = end;
+    }
+
+public void setStartMoveWay(Vector3 way) {
+        startMoveWay = way;
     }
 }
