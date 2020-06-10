@@ -307,12 +307,13 @@ AudioSource:
   m_GameObject: {fileID: 106212504}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2486984981733005042, guid: 760cd2cc466fe4244a0dfadc0032fb75,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 7d068132d0cd4fd40922e28bf9094a19, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.65
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -407,7 +408,7 @@ GameObject:
   - component: {fileID: 209286620}
   - component: {fileID: 209286619}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -624,7 +625,8 @@ AudioSource:
   m_GameObject: {fileID: 402457283}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6453424759322543403, guid: 760cd2cc466fe4244a0dfadc0032fb75,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 57a25d6fa952ea84ab2966e38281ed69, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5

@@ -22,6 +22,7 @@ public class TouchEffect : MonoBehaviour
     public AudioClip SE_awa;
     AudioSource audioSource;
 
+    private GameObject ParticleCanvas;
     // Use this for initialization
     void Start()
     {
@@ -29,9 +30,13 @@ public class TouchEffect : MonoBehaviour
         DragFlag = false;
         touch = false;
 
+        ParticleCanvas = GameObject.Find("UICanvas");
         // パーティクルを生成
         m_ClickParticle = (GameObject)Instantiate(CLICK_PARTICLE);
         m_DragParticle = (GameObject)Instantiate(DRAG_PARTICLE);
+
+        m_ClickParticle.transform.SetParent(ParticleCanvas.transform, false);
+        m_DragParticle.transform.SetParent(ParticleCanvas.transform, false);
 
         // パーティクルの再生停止を制御するためコンポーネントを取得
         m_ClickParticleSystem = m_ClickParticle.GetComponent<ParticleSystem>();
