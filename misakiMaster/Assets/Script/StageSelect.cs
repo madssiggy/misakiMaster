@@ -10,6 +10,7 @@ public class StageSelect : MonoBehaviour
     SceneNavigator script;
 
     [SerializeField] GameObject menuPanel = default;
+    [SerializeField] GameObject setting_buton = default;
 
     [SerializeField] GameObject HAZIMARINOUMI = default;
     [SerializeField] GameObject SEIREINOMORI = default;
@@ -50,6 +51,7 @@ public class StageSelect : MonoBehaviour
     public void InitStageChoice()
     {
         menuPanel.SetActive(true);
+        setting_buton.SetActive(false);
 
         // 各ステージセレクト画面は非表示にする（ワールド選択が見えなくなるため）
         HAZIMARINOUMI.SetActive(false);
@@ -73,5 +75,14 @@ public class StageSelect : MonoBehaviour
     {
         Debug.Log("からっぽのかざん1-1に移動");
         script.SceneChange_Fade("3-1",1.0f);
+    }
+    //設定ボタンのパネルの表示オンオフ
+    public void OnSetting()
+    {
+        setting_buton.SetActive(true);
+    }
+    public void OnSettingEnd()
+    {
+        setting_buton.SetActive(false);
     }
 }

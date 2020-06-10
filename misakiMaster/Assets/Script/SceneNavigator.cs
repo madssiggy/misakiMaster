@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 
-//我シングルトンぞ？シーンまたいでも生きるぞよ？崇めよ
+//我シングルトンぞ？
 public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
 {
     // シーン関連===========================================================
@@ -216,4 +216,8 @@ public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
         FadeInFinished();
     }
 
+    public string GetCurrentSceneName()
+    {
+        return currentSceneName;
+    }
 }
