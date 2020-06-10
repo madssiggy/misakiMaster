@@ -22,7 +22,6 @@ public class TouchEffect : MonoBehaviour
     public AudioClip SE_awa;
     AudioSource audioSource;
 
-    private GameObject ParticleCanvas;
     // Use this for initialization
     void Start()
     {
@@ -30,13 +29,9 @@ public class TouchEffect : MonoBehaviour
         DragFlag = false;
         touch = false;
 
-        ParticleCanvas = GameObject.Find("UICanvas");
         // パーティクルを生成
         m_ClickParticle = (GameObject)Instantiate(CLICK_PARTICLE);
         m_DragParticle = (GameObject)Instantiate(DRAG_PARTICLE);
-
-        m_ClickParticle.transform.SetParent(ParticleCanvas.transform, false);
-        m_DragParticle.transform.SetParent(ParticleCanvas.transform, false);
 
         // パーティクルの再生停止を制御するためコンポーネントを取得
         m_ClickParticleSystem = m_ClickParticle.GetComponent<ParticleSystem>();
@@ -59,7 +54,7 @@ public class TouchEffect : MonoBehaviour
     {
         // パーティクルをマウスカーソルに追従させる
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = 30.0f;  // Canvasより手前に移動させる
+        mousePosition.z = 30.0f;  // OverLay以外のCanvasより手前に移動させる
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         
         touch = TouchStateManagerScript.GetTouch();
@@ -74,14 +69,12 @@ public class TouchEffect : MonoBehaviour
             // タッチ開始時
             if (TouchStateManagerScript.GetTouchPhase() == TouchPhase.Began)
             {
-                Debug.Log("★を出すよ");
                 m_ClickParticle.transform.position = mousePosition;
                 m_ClickParticleSystem.Play();   // １回再生(ParticleSystemのLoopingにチェックを入れていないため)
             }
             // タッチ終了
             else if (TouchStateManagerScript.GetTouchPhase() == TouchPhase.Ended)
             {
-                Debug.Log("タッチエフェクト停止");
                 // Particleの放出を停止する
                 m_ClickParticleSystem.Stop();
                 m_DragParticleSystem.Stop();
@@ -94,7 +87,6 @@ public class TouchEffect : MonoBehaviour
                 if (!DragFlag)
                 {
                     audioSource.PlayOneShot(SE_awa);
-                    Debug.Log("キラキラを出すよ");
                     m_DragParticleSystem.Play();    // ループ再生(Loopingにチェックが入っている)
 
                     DragFlag = true;
