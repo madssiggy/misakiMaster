@@ -67,7 +67,7 @@ public class slimeControl : MonoBehaviour
                 script.GetNowFront() == (int)manager.Wall.Right) {
                 gameObject.transform.Translate(Way,Space.World);
             } else {
-                gameObject.transform.Translate(Way);
+                gameObject.transform.Translate(Way,Space.World);
             }
             
         }

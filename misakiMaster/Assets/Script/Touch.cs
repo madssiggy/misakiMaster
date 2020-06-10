@@ -32,6 +32,7 @@ public class Touch : MonoBehaviour
     Vector3 CreatePosition;
     bool canCreate;
     Vector3 startMoveWay;
+  bool MiddleBubbleisRotX;
     //====================================亀山
 
     //=========================
@@ -47,6 +48,8 @@ public class Touch : MonoBehaviour
         managerScript = managerObj.GetComponent<manager>();
         canCreate = false;
         startMoveWay=new Vector3(0,0,0);
+        CreatePosition = new Vector3(0, 0, 0);
+        MiddleBubbleisRotX = false;
     }
 
     //=========================
@@ -172,185 +175,14 @@ else if (startObj.CompareTag("SmallSlime")) {
                                     Mathf.Floor(Mathf.Abs(hitObj.transform.parent.position.z)) /(MaxDistance/2)
                                 )
                                 {
-                                    Debug.Log("削除します");
-                                    bool canBubbleAct = false;
-                                    // 削除対象のオブジェクトを格納
-                                    endObj = hitObj;
-                                    string ObjTag = startObj.tag;
-
-                                    if (startObj.CompareTag("MiddleSlimeTate") || startObj.CompareTag("MiddleSlimeYoko")) {
-                                        if (ObjTag == "MiddleSlimeYoko") {
-                                            switch (managerScript.GetNowFront()) {
-                                                case (int)manager.Wall.Right:
-                                                case (int)manager.Wall.Left:
-                                                    if (startObj.transform.position.x == endObj.transform.position.x
-                                                        && startObj.transform.position.z == endObj.transform.position.z) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                                default:
-                                                    if (startObj.transform.position.x == endObj.transform.position.x
-                                                        && startObj.transform.position.z == endObj.transform.position.z) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                            }
-                                        }
-
-                                        if ((ObjTag == "MiddleSlimeTate") ) {
-                                            switch (managerScript.GetNowFront()) {
-                                                case (int)manager.Wall.Right:
-                                                case (int)manager.Wall.Left:
-                                                    if (startObj.transform.position.x == endObj.transform.position.x
-                                                        && startObj.transform.position.y == endObj.transform.position.y) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                                default:
-                                                    if (startObj.transform.position.y == endObj.transform.position.y
-                                                        && startObj.transform.position.z == endObj.transform.position.z) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                            }
-                                        }
-                                      
-                                        if (canBubbleAct == true) {
-                                            startObj.GetComponent<slimeControl>().goSign(endObj);
-                                            startMoveWay = Vector3.Normalize(endObj.transform.position - startObj.transform.position);
-
-                                            startObj.GetComponent<slimeControl>().SetQuarternion(CreateBigSlimeQuarternion());
-                                            CreatePosition = ((startObj.transform.localPosition + endObj.transform.localPosition) / 2);
-                                            // 削除対象のオブジェクトを格納
-                                            PushToList(hitObj);
-                                            canBubbleAct = false;
-                                        }
-
-                                    }
-                                    //小スライムが消された場合
-                                    else if (startObj.CompareTag("SmallSlime")) {
-                                        switch (managerScript.GetNowFront())
-                                            {
-                                            case (int)manager.Wall.Right:
-                                            case (int)manager.Wall.Left:
-                                                //xがおなじでなければ成立しない
-                                                if(startObj.transform.position.x== endObj.transform.position.x) {
-                                                    canBubbleAct = true;
-                                                }
-                                                break;
-                                            default:
-                                                //zがおなじでなければ成立しない
-                                                if (startObj.transform.position.z == endObj.transform.position.z) {
-                                                    canBubbleAct = true;
-                                                }
-                                                break;
-                                  
-
-                                        }
-                                        if (canBubbleAct == true) {
-                                            startObj.GetComponent<slimeControl>().goSign(endObj);
-                                            startMoveWay = Vector3.Normalize(endObj.transform.position - startObj.transform.position);
-
-                                            startObj.GetComponent<slimeControl>().SetQuarternion(CreateSlimeQuarternion());
-                                            CreatePosition = ((startObj.transform.localPosition + endObj.transform.localPosition) / 2);
-                                            // 削除対象のオブジェクトを格納
-                                            PushToList(hitObj);
-                                            canBubbleAct = false;
-                                        }
-                                       
-                                    }
+                                    DecideBubble(hitObj);
                                 }
                               else  if (((managerScript.GetNowFront() == (int)manager.Wall.Right) || (managerScript.GetNowFront() == (int)manager.Wall.Left))&&
                                     Mathf.Floor(Mathf.Abs(startObj.transform.parent.position.x)) / (MaxDistance / 2)
                                     ==  Mathf.Floor(Mathf.Abs(hitObj.    transform.parent.position.x)) / (MaxDistance / 2)
 ) {
-                                    Debug.Log("削除します");
-                                    bool canBubbleAct = false;
-                                    // 削除対象のオブジェクトを格納
-                                    endObj = hitObj;
-                                    string ObjTag = startObj.tag;
-
-                                    if (startObj.CompareTag("MiddleSlimeTate") || startObj.CompareTag("MiddleSlimeYoko")) {
-                                        if (ObjTag == "MiddleSlimeYoko") {
-                                            switch (managerScript.GetNowFront()) {
-                                                case (int)manager.Wall.Right:
-                                                case (int)manager.Wall.Left:
-                                                    if (startObj.transform.position.x == endObj.transform.position.x
-                                                        && startObj.transform.position.z == endObj.transform.position.z) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                                default:
-                                                    if (startObj.transform.position.x == endObj.transform.position.x
-                                                        && startObj.transform.position.z == endObj.transform.position.z) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                            }
-                                        }
-
-                                        if ((ObjTag == "MiddleSlimeTate")) {
-                                            switch (managerScript.GetNowFront()) {
-                                                case (int)manager.Wall.Right:
-                                                case (int)manager.Wall.Left:
-                                                    if (startObj.transform.position.x == endObj.transform.position.x
-                                                        && startObj.transform.position.y == endObj.transform.position.y) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                                default:
-                                                    if (startObj.transform.position.y == endObj.transform.position.y
-                                                        && startObj.transform.position.z == endObj.transform.position.z) {
-                                                        canBubbleAct = true;
-                                                    }
-                                                    break;
-                                            }
-                                        }
-
-                                        if (canBubbleAct == true) {
-                                            startObj.GetComponent<slimeControl>().goSign(endObj);
-                                            startMoveWay = Vector3.Normalize(endObj.transform.position - startObj.transform.position);
-
-                                            startObj.GetComponent<slimeControl>().SetQuarternion(CreateBigSlimeQuarternion());
-                                            CreatePosition = ((startObj.transform.localPosition + endObj.transform.localPosition) / 2);
-                                            // 削除対象のオブジェクトを格納
-                                            PushToList(hitObj);
-                                            canBubbleAct = false;
-                                        }
-
-                                    }
-                                    //小スライムが消された場合
-                                    else if (startObj.CompareTag("SmallSlime")) {
-                                        switch (managerScript.GetNowFront()) {
-                                            case (int)manager.Wall.Right:
-                                            case (int)manager.Wall.Left:
-                                                //xがおなじでなければ成立しない
-                                                if (startObj.transform.position.x == endObj.transform.position.x) {
-                                                    canBubbleAct = true;
-                                                }
-                                                break;
-                                            default:
-                                                //zがおなじでなければ成立しない
-                                                if (startObj.transform.position.z == endObj.transform.position.z) {
-                                                    canBubbleAct = true;
-                                                }
-                                                break;
-
-
-                                        }
-                                        if (canBubbleAct == true) {
-                                            startObj.GetComponent<slimeControl>().goSign(endObj);
-                                            startMoveWay = Vector3.Normalize(endObj.transform.position - startObj.transform.position);
-
-                                            startObj.GetComponent<slimeControl>().SetQuarternion(CreateSlimeQuarternion());
-                                            CreatePosition = ((startObj.transform.localPosition + endObj.transform.localPosition) / 2);
-                                            // 削除対象のオブジェクトを格納
-                                            PushToList(hitObj);
-                                            canBubbleAct = false;
-                                        }
-
-                                    }
-                                }
+                                    DecideBubble(hitObj);
+                                     }
                             }
                         }
                     }
@@ -492,8 +324,11 @@ else if (startObj.CompareTag("SmallSlime")) {
                     break;
             }
         }
-        
-      
+
+        if (MiddleBubbleisRotX == true) {
+            Return.x = 90f;
+            MiddleBubbleisRotX = false;
+        }
 
 
         return Return;
@@ -551,10 +386,6 @@ else if (startObj.CompareTag("SmallSlime")) {
         //  if (startObj.transform.localPosition.x == endObj.transform.localPosition.x)
 
 
-
-
-
-
         GameObject obj = (GameObject)Resources.Load(PrefPath);
         //生成したプレハブをFieldCenterに登録する。
         GameObject tmp = null;
@@ -566,6 +397,7 @@ else if (startObj.CompareTag("SmallSlime")) {
         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
         Debug.Log("終点側に中スライムを生成");
         touchFlg = true;
+        MiddleBubbleisRotX = false;
         Debug.Log("有効なタッチである");
     }
     void CreateBigBubble()
@@ -581,6 +413,7 @@ else if (startObj.CompareTag("SmallSlime")) {
         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
         Debug.Log("終点側に大スライムを生成");
         touchFlg = true;
+
         Debug.Log("有効なタッチである");
 
     }
@@ -592,5 +425,102 @@ else if (startObj.CompareTag("SmallSlime")) {
 
 public void setStartMoveWay(Vector3 way) {
         startMoveWay = way;
+    }
+
+    void DecideBubble(GameObject hitObj)
+    {
+        Debug.Log("削除します");
+        bool canBubbleAct = false;
+        // 削除対象のオブジェクトを格納
+        endObj = hitObj;
+        string ObjTag = startObj.tag;
+
+        if (startObj.CompareTag("MiddleSlimeTate") || startObj.CompareTag("MiddleSlimeYoko")) {
+            if (ObjTag == "MiddleSlimeYoko") {
+                switch (managerScript.GetNowFront()) {
+                    case (int)manager.Wall.Right:
+                    case (int)manager.Wall.Left:
+                        /*上から見て平行でも合体できるようにするためのスクリプト。
+    RorLからみた位置であれば、xが同じであることが最低条件で、Ｙが同じでかつどちらの泡も角度が0or180なら
+    rot.xを９０にした状態bigBubbleが生成されるようにする
+    */ if (startObj.transform.position.x == endObj.transform.position.x ) {
+   
+                            if (startObj.transform.position.z == endObj.transform.position.z) {
+                                canBubbleAct = true;
+                            }
+                            else if ((startObj.transform.position.y == endObj.transform.position.y)&&
+                                (((Mathf.Abs(startObj.transform.localEulerAngles.y) ==0f) || (Mathf.Abs(startObj.transform.localEulerAngles.y) == 180f))
+                                && ((Mathf.Abs(endObj.transform.localEulerAngles.y) == 0f) || (Mathf.Abs(endObj.transform.localEulerAngles.y) == 180f)))) {
+                                canBubbleAct = true;
+                                MiddleBubbleisRotX = true;
+                            }
+                        }
+                        break;
+                    default:
+                        /*正面or背面から見た場合は奥行き（z軸）が同じなのが最低条件で、
+                         （xが同じ）という条件と、（Ｙが同じ）かつ（どちらの泡も角度が９０か２７０）ならrot.x=90*/
+                        if (startObj.transform.position.z == endObj.transform.position.z) {
+                            if (startObj.transform.position.x == endObj.transform.position.x) {
+                                canBubbleAct = true;
+                            } else if ((startObj.transform.position.y == endObj.transform.position.y) &&
+                                  (((Mathf.Abs(startObj.transform.localEulerAngles.y) == 90f) || (Mathf.Abs(startObj.transform.localEulerAngles.y) == 270f))
+                                  && ((Mathf.Abs(endObj.transform.localEulerAngles.y) == 90f) || (Mathf.Abs(endObj.transform.localEulerAngles.y) == 270f)))) {
+                                canBubbleAct = true;
+                                MiddleBubbleisRotX = true;
+                            }
+                        }
+                        break;
+                }
+            }
+
+            if ((ObjTag == "MiddleSlimeTate")) {
+                switch (managerScript.GetNowFront()) {
+                    case (int)manager.Wall.Right:
+                    case (int)manager.Wall.Left:
+                        if (startObj.transform.position.x == endObj.transform.position.x
+                            && startObj.transform.position.y == endObj.transform.position.y) {
+                            canBubbleAct = true;
+                        }
+                        break;
+                    default:
+                        if (startObj.transform.position.y == endObj.transform.position.y
+                            && startObj.transform.position.z == endObj.transform.position.z) {
+                            canBubbleAct = true;
+                        }
+                        break;
+                }
+            }
+        }
+        //小スライムが消された場合
+        else if (startObj.CompareTag("SmallSlime")) {
+            switch (managerScript.GetNowFront()) {
+                case (int)manager.Wall.Right:
+                case (int)manager.Wall.Left:
+                    //xがおなじでなければ成立しない
+                    if (startObj.transform.position.x == endObj.transform.position.x) {
+                        canBubbleAct = true;
+                    }
+                    break;
+                default:
+                    //zがおなじでなければ成立しない
+                    if (startObj.transform.position.z == endObj.transform.position.z) {
+                        canBubbleAct = true;
+                    }
+                    break;
+           }
+
+
+        }
+        if (canBubbleAct == true) {
+            startObj.GetComponent<slimeControl>().goSign(endObj);
+            startMoveWay = Vector3.Normalize(endObj.transform.localPosition - startObj.transform.localPosition);
+
+            startObj.GetComponent<slimeControl>().SetQuarternion(CreateSlimeQuarternion());
+            CreatePosition = ((startObj.transform.localPosition + endObj.transform.localPosition) / 2);
+            // 削除対象のオブジェクトを格納
+            PushToList(hitObj);
+     
+        }
+      //  Debug.Log("start.rot=" + startObj.transform.rotation + "local" + startObj.transform.localRotation);
     }
 }
