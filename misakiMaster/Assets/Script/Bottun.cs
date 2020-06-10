@@ -12,6 +12,11 @@ public class Bottun : MonoBehaviour
 
     GameObject cameraObject;
     cameraControl cameraScript;
+
+    // シーン管理マネージャの取得
+    GameObject SceneNavigatorObj;
+    SceneNavigator scene_script;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +27,9 @@ public class Bottun : MonoBehaviour
         cameraObject = GameObject.Find("Main Camera");//("FieldCenter");
                                                       //Field
         cameraScript = cameraObject.GetComponent<cameraControl>();
+
+        SceneNavigatorObj = GameObject.Find("SceneNavigator");
+        scene_script = SceneNavigatorObj.GetComponent<SceneNavigator>();
     }
 
     // Update is called once per frame
@@ -58,5 +66,9 @@ public class Bottun : MonoBehaviour
     public void SetisClicked(bool check)
     {
         isClicked = check;
+    }
+    public void OnReload()
+    {
+        scene_script.SceneReload(1.0f);
     }
 }
