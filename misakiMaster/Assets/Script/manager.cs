@@ -38,7 +38,7 @@ public class manager : MonoBehaviour
     GameObject[] bubble;
 
     public int bubbleNum;
-    public static int CbubbleNum; //シーンまたいでも残る変数
+
     // Start is called before the first frame update
     void Start()
     {
@@ -198,10 +198,8 @@ public class manager : MonoBehaviour
             ClearCanvas.SetActive(true);
         }
     }
-
-    //げったーロボ
-    public static int GetbubbleNum()
+    public int GetNowFront()
     {
-        return CbubbleNum;
+        return (int)nowFront;
     }
 }

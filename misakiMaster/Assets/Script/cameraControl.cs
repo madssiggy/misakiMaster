@@ -8,7 +8,10 @@ public class cameraControl : MonoBehaviour
     GameObject Manager;
     Vector3 targetPos;
     manager script;
+    float cameraAngle = 0.0f;
 
+    Bottun BottunScriptL;
+    Bottun BottunScriptR;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +20,9 @@ public class cameraControl : MonoBehaviour
 
         Manager = GameObject.Find("StageManager");
         script = Manager.GetComponent<manager>();
+
+        BottunScriptL = GameObject.Find("ButtonL").GetComponent<Bottun>();
+        BottunScriptR = GameObject.Find("ButtonR").GetComponent<Bottun>();
     }
 
     // Update is called once per frame
@@ -57,5 +63,78 @@ public class cameraControl : MonoBehaviour
 			script.isCamera = false;
 		}
     }
+    public IEnumerator RollYL()
+    {
+        Debug.Log("カメラ回転-----------------------------------------------------");
+        //回転中のフラグを立てる
+        script.isRotate = true;
+        //回転処理
+        float sumAngle = 0f; //angleの合計を保存
 
+        while (sumAngle > -90f) {
+            cameraAngle = -1.0f; //ここを変えると回転速度が変わる
+            sumAngle += cameraAngle;
+
+            // 90度以上回転しないように値を制限
+            if (sumAngle < -90.0f) {
+                cameraAngle -= sumAngle + 90.0f;
+            }
+
+            transform.RotateAround
+                 (
+                     targetObj.transform.position,
+                     Vector3.up,
+                     cameraAngle
+                 );
+            yield return null;
+        }
+        BottunScriptL.SetisClicked(false);
+
+
+
+
+        //回転中のフラグを倒す
+        script.isRotate = false;
+        script.SetFront(script.nowFront, false);
+        Mathf.Ceil(transform.rotation.x);
+        Mathf.Ceil(transform.rotation.y);
+        Mathf.Ceil(transform.rotation.z);
+        yield break;
+    }
+
+    public IEnumerator RollYR()
+    {
+        Debug.Log("カメラ回転-------------------------------------------------");
+        //回転中のフラグを立てる
+        script.isRotate = true;
+        //回転処理
+        float sumAngle = 0f; //angleの合計を保存
+
+        while (sumAngle < 90f) {
+            cameraAngle = 1.0f; //ここを変えると回転速度が変わる
+            sumAngle += cameraAngle;
+
+            // 90度以上回転しないように値を制限
+            if (sumAngle > 90f) {
+                cameraAngle -= sumAngle - 90f;
+            }
+            transform.RotateAround
+                        (
+                           targetObj .transform.position,
+                            Vector3.up,
+                            cameraAngle
+                        );
+
+
+            yield return null;
+        }
+        BottunScriptR.SetisClicked(false);
+        //回転中のフラグを倒す
+        script.isRotate = false;
+        script.SetFront(script.nowFront, true);
+        Mathf.Ceil(transform.rotation.x);
+        Mathf.Ceil(transform.rotation.y);
+        Mathf.Ceil(transform.rotation.z);
+        yield break;
+    }
 }

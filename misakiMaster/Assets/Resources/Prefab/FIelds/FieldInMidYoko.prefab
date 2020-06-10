@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1396667619298404012}
+  - component: {fileID: 2592964567250173327}
   m_Layer: 8
-  m_Name: FieldInMid
-  m_TagString: MiddleSlime
+  m_Name: FieldInMidYoko
+  m_TagString: MiddleSlimeYoko
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2592964567250173327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396667619298404011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ef0beb0114d9f45be7218efddf084e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BigExplosion: {fileID: 0}
 --- !u!1 &1846252716650281981
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +252,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
         type: 3}
+    - target: {fileID: 9127983617640645578, guid: 95b63ae1ea533044db85a7ab2cfa882c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9127983617640645582, guid: 95b63ae1ea533044db85a7ab2cfa882c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -316,7 +335,7 @@ PrefabInstance:
     - target: {fileID: 9127983617640645621, guid: 95b63ae1ea533044db85a7ab2cfa882c,
         type: 3}
       propertyPath: m_TagString
-      value: MiddleSlime
+      value: MiddleSlimeYoko
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95b63ae1ea533044db85a7ab2cfa882c, type: 3}
