@@ -99,6 +99,11 @@ public class StageSelect : MonoBehaviour
         Debug.Log("からっぽのかざん1-1に移動");
         script.SceneChange_Fade("3-1",1.0f);
     }
+    public void Tutorial()
+    {
+        Debug.Log("ちゅーとりあるに移動");
+        script.SceneChange_Fade("tutorial", 1.0f);
+    }
     //設定ボタンのパネルの表示オンオフ
     public void OnSetting()
     {
