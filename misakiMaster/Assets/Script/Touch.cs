@@ -13,27 +13,35 @@ public class Touch : MonoBehaviour
     private GameObject endObj;      // タッチ終点にあるオブジェクトを格納
     public string currentName;      // タグ判定用のstring変数
 
-    // 削除するスライムのリスト
-    List<GameObject> removableSlimeList = new List<GameObject>();
+    // 削除するバイキンのリスト
+    List<GameObject> removableBaikinList = new List<GameObject>();
 
     public float MaxDistance;
 
     //マネージャー読み込み======
     public GameObject managerObj;
     manager managerScript;
+
     //====================================
-        //タッチ回数保存===========
-            public int touchNum;    //touchKaisuu.csで使ってます。スライムを消すタッチをした場合のみプラスされる
-            bool touchFlg;          //スライムを消すタッチであった場合のみtouchNumをプラスする
-                                    //=======================
-        //スライム動いて消えるやつ
-           BubbleScript startObjScript;
+    //タッチ回数保存===========
+        public int touchNum;    //touchKaisuu.csで使ってます。スライムを消すタッチをした場合のみプラスされる
+        bool touchFlg;          //スライムを消すタッチであった場合のみtouchNumをプラスする
+    //=======================
+    //スライム動いて消えるやつ
+    BubbleScript startObjScript;
     bool isStartBubbleMove;//動かしてよいスライムが動いているか
     Vector3 CreatePosition;
     bool canCreate;
     Vector3 startMoveWay;
-  bool MiddleBubbleisRotX;
+    bool MiddleBubbleisRotX;
     //====================================亀山
+
+    //音を鳴らす
+    public AudioClip SE_awa;
+    public AudioClip SE_Kuttuku;
+    AudioSource audioSource;
+    private bool awa_Flag;
+    private bool Kuttuki_Flag;
 
     //=========================
     // 初期化処理
@@ -50,6 +58,11 @@ public class Touch : MonoBehaviour
         startMoveWay=new Vector3(0,0,0);
         CreatePosition = new Vector3(0, 0, 0);
         MiddleBubbleisRotX = false;
+
+        //Componentを取得
+        audioSource = GetComponent<AudioSource>();
+        awa_Flag = false;
+        Kuttuki_Flag = false;
     }
 
     //=========================
@@ -57,19 +70,35 @@ public class Touch : MonoBehaviour
     //=========================
     void Update()
     {
+        if(TouchStateManagerScript.GetTouch() == false)
+        {
+            Debug.Log("泡5再生準備");
+            awa_Flag = false;
+        }
         // タッチされている時
         if (managerScript.isRotate == false && TouchStateManagerScript.GetTouch())
         {
+            Kuttuki_Flag = false;
+
             Debug.Log("タッチ開始");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
+            if (!(Physics.Raycast(ray, out hit, Mathf.Infinity, mask)))
+            {
+                Debug.Log("泡５再生");
+                if (!awa_Flag)
+                {
+                    audioSource.PlayOneShot(SE_awa);
+                    awa_Flag = true;
+                }
+            }
             if (startObj == null)
             {
-                // Rayが特定レイヤの物体（スライム）に衝突している場合
+                // Rayが特定レイヤの物体（バイキン）に衝突している場合
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
                 {
-                    //　大スライムにRayが衝突している時
+                    //　大バイキンにRayが衝突している時
                     if (hit.collider.gameObject.CompareTag("BigSlime"))
                     {
                       Debug.Log("爆発");
@@ -80,22 +109,18 @@ public class Touch : MonoBehaviour
                         hit.collider.gameObject.GetComponent<slimeControl>().SlimeDestroy(new Vector3(0, 0, 0));
                         managerScript.CheckBubble();
                     }
-                    //　小、中スライムにRayがぶつかった時
+                    //　小、中バイキンにRayがぶつかった時
                     else if (hit.collider.gameObject.CompareTag("MiddleSlimeTate")|| hit.collider.gameObject.CompareTag("MiddleSlimeYoko") ||
                              hit.collider.gameObject.CompareTag("SmallSlime"))
                     {
                         currentName = hit.collider.gameObject.tag;
 
-                    
-
-                        // スライムオブジェクトを格納
+                        // バイキンオブジェクトを格納
                         startObj = hit.collider.transform.parent.gameObject;
                         endObj = hit.collider.transform.parent.gameObject;
                         
-           
-
                         // 削除対象オブジェクトリストの初期化
-                        removableSlimeList = new List<GameObject>();
+                        removableBaikinList = new List<GameObject>();
 
                         // 削除対象のオブジェクトを格納
                         PushToList(hit.collider.gameObject);
@@ -103,42 +128,39 @@ public class Touch : MonoBehaviour
                         Debug.Log("削除対象追加");
                     }
                 }
+                else
+                {
+                }
             }
             //タッチ終了時
             else if(TouchStateManagerScript.GetTouchPhase() == TouchPhase.Ended)
             {
-             
-                int remove_cnt = removableSlimeList.Count;
+                int remove_cnt = removableBaikinList.Count;
 
                 if (remove_cnt == 2)
                 {
-                    if (startObj.CompareTag("MiddleSlime")) {
-                 //       CreateBigBubble();
+                    if (startObj.CompareTag("MiddleSlime"))
+                    {
+                        //CreateBigBubble();
                     }
-//小スライムが消された場合
-else if (startObj.CompareTag("SmallSlime")) {
-
-                 //       CreateMiddleBubble();
-
+                    //小バイキンが消された場合
+                    else if (startObj.CompareTag("SmallSlime"))
+                    {
+                        //CreateMiddleBubble();
                     }
 
-          //          GameObject.Destroy(startObj);
-             //       GameObject.Destroy(endObj);
+                    //GameObject.Destroy(startObj);
+                    //GameObject.Destroy(endObj);
                
+                    //startObj.GetComponent<slimeControl>().BubbleMove(Vector3.Normalize(startObj.transform.position - endObj.transform.position));
 
-                  //  startObj.GetComponent<slimeControl>().BubbleMove(Vector3.Normalize(startObj.transform.position - endObj.transform.position));
-
-                    // スコアと消えるときの音はここ↓※これは昔つくったやーつ
-
-                    //scoreGUI.SendMessage("AddPoint", point * remove_cnt);
-                    //efxSource.Play();
                 }
                 // 消す対象外の時
                 else
                 {
                     for (int i = 0; i < remove_cnt; i++)
                     {
-                        removableSlimeList[i] = null;
+                        removableBaikinList[i] = null;
                     }
                 }
 
@@ -146,6 +168,7 @@ else if (startObj.CompareTag("SmallSlime")) {
                 currentName = null;
                 startObj = null;
                 endObj = null;
+
             }
             // タッチ中
             else if(TouchStateManagerScript.GetTouchPhase() == TouchPhase.Moved && startObj != null)
@@ -177,12 +200,12 @@ else if (startObj.CompareTag("SmallSlime")) {
                                 {
                                     DecideBubble(hitObj);
                                 }
-                              else  if (((managerScript.GetNowFront() == (int)manager.Wall.Right) || (managerScript.GetNowFront() == (int)manager.Wall.Left))&&
-                                    Mathf.Floor(Mathf.Abs(startObj.transform.parent.position.x)) / (MaxDistance / 2)
-                                    ==  Mathf.Floor(Mathf.Abs(hitObj.    transform.parent.position.x)) / (MaxDistance / 2)
-) {
+                                else  if (((managerScript.GetNowFront() == (int)manager.Wall.Right) || (managerScript.GetNowFront() == (int)manager.Wall.Left))&&
+                                            Mathf.Floor(Mathf.Abs(startObj.transform.parent.position.x)) / (MaxDistance / 2) ==
+                                            Mathf.Floor(Mathf.Abs(hitObj.    transform.parent.position.x)) / (MaxDistance / 2))
+                                {
                                     DecideBubble(hitObj);
-                                     }
+                                }
                             }
                         }
                     }
@@ -192,11 +215,11 @@ else if (startObj.CompareTag("SmallSlime")) {
                 
         }
         //if (managerScript.isBubbleDestroy==true) {
-        //    //中スライムが消された場合
+        //    //中バイキンが消された場合
         //    if (startObj.CompareTag("MiddleSlime")) {
         //        CreateBigBubble();
         //    }
-        //    //小スライムが消された場合
+        //    //小バイキンが消された場合
         //    else if (startObj.CompareTag("SmallSlime")) {
 
         //        CreateMiddleBubble();
@@ -208,11 +231,10 @@ else if (startObj.CompareTag("SmallSlime")) {
         //}
         if (touchFlg == true)
         {
-            //ここに中小のスライム削除、スライム生成を移す
+            //ここに中小のバイキン削除、バイキン生成を移す
             touchNum++;
             managerScript.CheckBubble();
             touchFlg = false;
-     
         }
     }
 
@@ -222,20 +244,20 @@ else if (startObj.CompareTag("SmallSlime")) {
     void PushToList(GameObject obj)
     {
         // 除去リストに選択しているオブジェクトを追加
-        removableSlimeList.Add(obj);
+        removableBaikinList.Add(obj);
 
         // どのオブジェクトが除去リスト入りしているかわかりやすいように名前に_をつけたす
         obj.name = "_" + obj.name;
     }
 
     /*==================================================
-     生成されるスライムの角度を
+     生成されるバイキンの角度を
      managerに保存されているカメラ位置に対応したRotateで生成する
      ===================================================    */
 
     Vector3 CreateSlimeQuarternion()
     {
-        //角度別スライム生成
+        //角度別バイキン生成
         Vector3 compared = startObj.transform.position;
         Vector3 compare = endObj.transform.position;
         Vector3 Return;
@@ -260,20 +282,20 @@ else if (startObj.CompareTag("SmallSlime")) {
                 Return.y = 180f;
                 break;
             }
-      
+
         //位置取得。
         //if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
         //    Mathf.Floor(compared.x) / (MaxDistance / 2)) {
-        //    //縦長スライム生成
+        //    //縦長バイキン生成
         //    prefRotate.z = 90;
         //} else if (Mathf.Floor(compare.y) / (MaxDistance / 2) ==
         //    Mathf.Floor(compared.y) / (MaxDistance / 2)) {
-        //    //横長スライム生成
+        //    //横長バイキン生成
         //    prefRotate.z = 0;
         //}
 
-    //    Return.y = startObj.transform.parent.transform.rotation.y;
-        
+        //    Return.y = startObj.transform.parent.transform.rotation.y;
+
         return Return;
     }
 
@@ -286,7 +308,7 @@ else if (startObj.CompareTag("SmallSlime")) {
         int nowFront = managerScript.nowFront;
         //if (Mathf.Floor(compare.x) / (MaxDistance / 2) ==
         // Mathf.Floor(compared.x) / (MaxDistance / 2)) {
-        //    //縦長スライム生成
+        //    //縦長バイキン生成
         //   Return.z = 90;
         //} else {
         //    Return.z = 0;
@@ -395,10 +417,17 @@ else if (startObj.CompareTag("SmallSlime")) {
           CreatePosition,
                      Quaternion.Euler(CreateSlimeQuarternion()));
         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
-        Debug.Log("終点側に中スライムを生成");
+        Debug.Log("終点側に中バイキンを生成");
         touchFlg = true;
         MiddleBubbleisRotX = false;
         Debug.Log("有効なタッチである");
+
+        // くっつく音をいれる
+        if (!Kuttuki_Flag)
+        {
+            audioSource.PlayOneShot(SE_Kuttuku);
+            Kuttuki_Flag = true;
+        }
     }
     void CreateBigBubble()
     {
@@ -411,10 +440,17 @@ else if (startObj.CompareTag("SmallSlime")) {
                       Quaternion.Euler(CreateBigSlimeQuarternion()));
         //生成したプレハブをFieldCenterに登録する。
         tmp.transform.parent = GameObject.Find("FieldCenter").transform;
-        Debug.Log("終点側に大スライムを生成");
+        Debug.Log("終点側に大バイキンを生成");
         touchFlg = true;
 
         Debug.Log("有効なタッチである");
+
+        // くっつく音をいれる
+        if (!Kuttuki_Flag)
+        {
+            audioSource.PlayOneShot(SE_Kuttuku);
+            Kuttuki_Flag = true;
+        }
 
     }
    public void SetStartAndEnd(GameObject start,GameObject end)
@@ -491,7 +527,7 @@ public void setStartMoveWay(Vector3 way) {
                 }
             }
         }
-        //小スライムが消された場合
+        //小バイキンが消された場合
         else if (startObj.CompareTag("SmallSlime")) {
             switch (managerScript.GetNowFront()) {
                 case (int)manager.Wall.Right:

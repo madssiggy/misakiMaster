@@ -11,9 +11,6 @@ public class slimeControl : MonoBehaviour
     bool isMove;
 
     public GameObject BigExplosion;
-    //SE用変数
-    private AudioClip sound1;
-    private AudioClip sound2;
     bool canMove;
 
     Vector3 Way;

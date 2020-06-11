@@ -12,6 +12,7 @@ public class TouchKaisuu : MonoBehaviour
     Text boardText;
     Touch touchScript;
     public int Operate;
+    private int Operate_kawaru;
     public static int operate;  //ゲッター用
 
     // Start is called before the first frame update
@@ -22,6 +23,8 @@ public class TouchKaisuu : MonoBehaviour
 
         boardText = this.GetComponent<Text>();
         touchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
+
+        Operate_kawaru = Operate;
     }
 
     // Update is called once per frame
@@ -31,9 +34,14 @@ public class TouchKaisuu : MonoBehaviour
   
         boardText.text = ""+(Operate - touchScript.touchNum);
 
-        if(Operate == 0)
+        Operate_kawaru -= touchScript.touchNum;
+        if (Operate_kawaru == 0)
         {
             RetryPanelMakeScript.SetGameOverFlag();
+        }
+        else
+        {
+            Operate_kawaru = Operate;
         }
     }
 
