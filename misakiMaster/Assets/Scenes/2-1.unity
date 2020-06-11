@@ -408,11 +408,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e90be8734b7b47945b172619ee14b51a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 16d50e185261acf458106aebca89c845, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0
+  m_Volume: 0.35
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -897,7 +897,7 @@ PrefabInstance:
     - target: {fileID: 7751804000194902985, guid: 268492a4e234c5249b0c3e1c55963499,
         type: 3}
       propertyPath: touchNum
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7751804000194902985, guid: 268492a4e234c5249b0c3e1c55963499,
         type: 3}
