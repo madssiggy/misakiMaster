@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bottun : MonoBehaviour
 {
@@ -67,6 +68,7 @@ public class Bottun : MonoBehaviour
     {
         isClicked = check;
     }
+    //　シーンの再読み込み(呼び出すだけでハイ、Reload）
     public void OnReload()
     {
         scene_script.SceneReload(1.0f);

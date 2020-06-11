@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Effect_sound : MonoBehaviour
 {
-
-
     AudioSource audio;
 
     // Start is called before the first frame update

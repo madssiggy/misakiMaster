@@ -2,6 +2,10 @@
 
 public class TouchEffect : MonoBehaviour
 {
+    // シーン管理マネージャの取得
+    GameObject SceneNavigatorObj;
+    SceneNavigator script;
+
     [SerializeField] GameObject CLICK_PARTICLE = default; // PS_TouchStarを割り当てる
     [SerializeField] GameObject DRAG_PARTICLE = default;  // PS_DragStarを割り当てる
 
@@ -20,8 +24,8 @@ public class TouchEffect : MonoBehaviour
 
     //音を鳴らす
     public AudioClip SE_awa;
+    private bool awa_Flag;
     AudioSource audioSource;
-
     // Use this for initialization
     void Start()
     {
@@ -45,7 +49,8 @@ public class TouchEffect : MonoBehaviour
         TouchStateManagerObj = GameObject.Find("TouchStateManager");
         TouchStateManagerScript = TouchStateManagerObj.GetComponent<TouchStateManager>();
 
-        //Componentを取得
+        SceneNavigatorObj = GameObject.Find("SceneNavigator");
+        script = SceneNavigatorObj.GetComponent<SceneNavigator>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -70,6 +75,7 @@ public class TouchEffect : MonoBehaviour
             if (TouchStateManagerScript.GetTouchPhase() == TouchPhase.Began)
             {
                 m_ClickParticle.transform.position = mousePosition;
+
                 m_ClickParticleSystem.Play();   // １回再生(ParticleSystemのLoopingにチェックを入れていないため)
             }
             // タッチ終了
@@ -86,9 +92,13 @@ public class TouchEffect : MonoBehaviour
             {
                 if (!DragFlag)
                 {
-                    audioSource.PlayOneShot(SE_awa);
                     m_DragParticleSystem.Play();    // ループ再生(Loopingにチェックが入っている)
-
+                    //string scene_name = TouchStateManagerScript.GetCurrentSceneName();
+                    if (script.GetCurrentSceneName() == "TITLE" ||
+                        script.GetCurrentSceneName() == "SELECT STAGE")
+                    {
+                        audioSource.PlayOneShot(SE_awa);
+                    }
                     DragFlag = true;
                 }
 

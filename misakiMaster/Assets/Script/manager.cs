@@ -16,7 +16,6 @@ public class manager : MonoBehaviour
 
     public GameObject ClearCanvas;
 
-    public AudioClip SE;
     public enum Wall
     {
        Front = 0,
@@ -30,11 +29,6 @@ public class manager : MonoBehaviour
     {
         small,middle,big,
     }
-
-
-    //スライムＳＥ用
-    AudioSource audioSource;
-
     GameObject[] bubble;
 
     public int bubbleNum;
@@ -47,13 +41,9 @@ public class manager : MonoBehaviour
         script = SceneNavigatorObj.GetComponent<SceneNavigator>();
         //==============================================================
 
-        
         cameraRotate = 0;
         nowFront = (int)Wall.Front;
 
-        audioSource = GetComponent<AudioSource>();
-
- 
         bubble = GameObject.FindGameObjectsWithTag("bubble");
 
 
@@ -171,19 +161,6 @@ public class manager : MonoBehaviour
 				break;
 		}
 	}
-
-    public void PlaySE(AudioClip tmp)
-    {
-        audioSource.PlayOneShot(tmp);
-        Debug.Log("ＳＥ発生");
-    }
-
-    public void PlaySE()
-    {
-        audioSource.PlayOneShot(SE);
-        Debug.Log("ＳＥ発生");
-    }
-
  
    public  void CheckBubble()
     {
