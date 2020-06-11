@@ -165,7 +165,7 @@ PrefabInstance:
         type: 3}
       propertyPath: BigExplosion
       value: 
-      objectReference: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+      objectReference: {fileID: 5938736681027265904, guid: 3407a73d45102864fa744bda76dcaeb9,
         type: 3}
     - target: {fileID: 9127983617640645578, guid: 95b63ae1ea533044db85a7ab2cfa882c,
         type: 3}
