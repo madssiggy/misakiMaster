@@ -66,10 +66,33 @@ public class StageSelect : MonoBehaviour
         script.SceneChange_Fade("1-1",1.0f);
     }
 
+    public void Stage1_2()
+    {
+        Debug.Log("はじまりのうみ1-2に遷移");
+        script.SceneChange_Fade("1-2", 1.0f);
+    }
+    public void Stage1_3()
+    {
+        Debug.Log("はじまりのうみ1-3に遷移");
+        script.SceneChange_Fade("1-3", 1.0f);
+    }
+
     public void Stage2_1()
     {
-        Debug.Log("せいれいのもり1-1に移動");
+        Debug.Log("せいれいのもり2-1に移動");
         script.SceneChange_Fade("2-1",1.0f);
+    }
+
+    public void Stage2_2()
+    {
+        Debug.Log("せいれいのもり2-2に移動");
+        script.SceneChange_Fade("2-2", 1.0f);
+    }
+
+    public void Stage2_3()
+    {
+        Debug.Log("せいれいのもり2-3に移動");
+        script.SceneChange_Fade("2-3", 1.0f);
     }
     public void Stage3_1()
     {
