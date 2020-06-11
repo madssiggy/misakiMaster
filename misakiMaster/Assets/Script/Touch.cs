@@ -34,6 +34,7 @@ public class Touch : MonoBehaviour
     bool canCreate;
     Vector3 startMoveWay;
     bool MiddleBubbleisRotX;
+   public bool isFusion;//中小の泡を操作中に合体しないように
     //====================================亀山
 
     //音を鳴らす
@@ -63,6 +64,7 @@ public class Touch : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         awa_Flag = false;
         Kuttuki_Flag = false;
+        isFusion = false;
     }
 
     //=========================
@@ -99,8 +101,8 @@ public class Touch : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
                 {
                     //　大バイキンにRayが衝突している時
-                    if (hit.collider.gameObject.CompareTag("BigSlime")&&
-                       removableBaikinList.Count==0)
+                    if (hit.collider.gameObject.CompareTag("BigSlime") &&
+                        isFusion ==false)
                     {
                       Debug.Log("爆発");
 
@@ -114,6 +116,7 @@ public class Touch : MonoBehaviour
                     else if (hit.collider.gameObject.CompareTag("MiddleSlimeTate")|| hit.collider.gameObject.CompareTag("MiddleSlimeYoko") ||
                              hit.collider.gameObject.CompareTag("SmallSlime"))
                     {
+                        isFusion = true;
                         currentName = hit.collider.gameObject.tag;
 
                         // バイキンオブジェクトを格納
@@ -188,7 +191,7 @@ public class Touch : MonoBehaviour
                             Debug.Log("同タグの別オブジェクトが選択された");
                             // ２つのオブジェクトの距離を取得
                             float distance = Vector2.Distance(hitObj.transform.position, endObj.transform.position);
-
+                            isFusion = false;
                             if (distance <= MaxDistance)
                             {
                                 Debug.Log("z値を取得し比較");
