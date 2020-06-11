@@ -72,9 +72,8 @@ public class Touch : MonoBehaviour
     //=========================
     void Update()
     {
-        if(TouchStateManagerScript.GetTouch() == false)
+        if(TouchStateManagerScript.GetTouch() == false && awa_Flag == true)
         {
-            Debug.Log("泡5再生準備");
             awa_Flag = false;
         }
         // タッチされている時
@@ -82,13 +81,11 @@ public class Touch : MonoBehaviour
         {
             Kuttuki_Flag = false;
 
-            Debug.Log("タッチ開始");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (!(Physics.Raycast(ray, out hit, Mathf.Infinity, mask)))
             {
-                Debug.Log("泡５再生");
                 if (!awa_Flag)
                 {
                     audioSource.PlayOneShot(SE_awa);
