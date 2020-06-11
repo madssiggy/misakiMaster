@@ -99,7 +99,8 @@ public class Touch : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, mask))
                 {
                     //　大バイキンにRayが衝突している時
-                    if (hit.collider.gameObject.CompareTag("BigSlime"))
+                    if (hit.collider.gameObject.CompareTag("BigSlime")&&
+                       removableBaikinList.Count==0)
                     {
                       Debug.Log("爆発");
 
@@ -214,21 +215,7 @@ public class Touch : MonoBehaviour
       
                 
         }
-        //if (managerScript.isBubbleDestroy==true) {
-        //    //中バイキンが消された場合
-        //    if (startObj.CompareTag("MiddleSlime")) {
-        //        CreateBigBubble();
-        //    }
-        //    //小バイキンが消された場合
-        //    else if (startObj.CompareTag("SmallSlime")) {
 
-        //        CreateMiddleBubble();
-
-        //    }
-
-        //    GameObject.Destroy(startObj);
-        //    GameObject.Destroy(endObj);
-        //}
         if (touchFlg == true)
         {
             //ここに中小のバイキン削除、バイキン生成を移す
