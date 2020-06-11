@@ -85,7 +85,14 @@ public class slimeControl : MonoBehaviour
         Destroy(collision.gameObject.transform.parent.gameObject);
 
         Destroy(this.transform.parent.gameObject);
-    
+
+        foreach (ContactPoint contactPoint in collision.contacts)
+        {
+
+            GameObject effect = (GameObject)Instantiate(BigExplosion, (Vector3)contactPoint.point, Quaternion.identity);
+
+            Destroy(effect, 0.5f);
+        }
 
     }
     //private void OnCollisionEnter(Collision collision)
