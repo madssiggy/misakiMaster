@@ -31,6 +31,10 @@ public class manager : MonoBehaviour
 
     public int bubbleNum;
 
+    //音を鳴らす
+    public AudioClip SE_Destroy;
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,8 +48,9 @@ public class manager : MonoBehaviour
 
         bubble = GameObject.FindGameObjectsWithTag("bubble");
 
-        bubbleNum = bubble.Length; 
+        bubbleNum = bubble.Length;
 
+        audioSource = GetComponent<AudioSource>();
         //Debug.Log("virusnum=" + virusnum);
     }
 
@@ -171,5 +176,9 @@ public class manager : MonoBehaviour
     public int GetBubble()
     {
         return bubbleNum;
+    }
+    public void se_destroy()
+    {
+        audioSource.PlayOneShot(SE_Destroy);
     }
 }

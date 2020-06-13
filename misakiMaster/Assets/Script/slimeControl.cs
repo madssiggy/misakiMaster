@@ -49,6 +49,7 @@ public class slimeControl : MonoBehaviour
     //スライムをぶっこわす
     public void SlimeDestroy(Vector3 MoveWay)
     {
+        script.se_destroy();
 
         GameObject effect = (GameObject)Instantiate(BigExplosion,this.transform.position, Quaternion.identity);
 
