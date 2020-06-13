@@ -13,32 +13,33 @@ public class Medal_Manager : MonoBehaviour
     public int silverNum;
     public int goldNum;
 
-    public int Cnum;
+    private int Cnum;
+
     // Start is called before the first frame update
     void Start()
     {
-        Cnum = TouchKaisuu.operate;
+        Cnum = TouchKaisuu.GetOperate();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Cnum >= goldNum)
+        if (Cnum <= bronzNum) 
+        {
+            bronzMedal.SetActive(true);
+        }
+
+        else if (Cnum <= silverNum)
+        {
+            bronzMedal.SetActive(true);
+            silverMedal.SetActive(true);
+        }
+
+        else if (Cnum <= goldNum)
         {
             bronzMedal.SetActive(true);
             silverMedal.SetActive(true);
             goldMedal.SetActive(true);
-        }
-
-        else if (Cnum >= silverNum)
-        {
-            bronzMedal.SetActive(true);
-            silverMedal.SetActive(true);
-        }
-
-        else if (Cnum >= bronzNum)
-        {
-            bronzMedal.SetActive(true);
         }
     }
 }

@@ -25,7 +25,6 @@ public class TouchKaisuu : MonoBehaviour
         touchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
 
         Operate_kawaru = Operate;
-        
     }
 
     // Update is called once per frame
@@ -35,21 +34,26 @@ public class TouchKaisuu : MonoBehaviour
   
         boardText.text = ""+(Operate - touchScript.touchNum);
 
+        //Operate_kawaruの中身を元々の移動回数でリセット
+        Operate_kawaru = Operate;
+
+        //元々の移動回数からtouchNumを引いた残り移動回数をOperate_kawaruに代入
         Operate_kawaru -= touchScript.touchNum;
+
+        //残り移動回数が0ならゲームオーバー
         if (Operate_kawaru == 0)
         {
             RetryPanelMakeScript.SetGameOverFlag();
         }
-        else
-        {
-            Operate_kawaru = Operate;
-        }
-        operate = Operate - touchScript.touchNum;
     }
 
     //げったーロボ
     public static int GetOperate()
     {
         return operate;
+    }
+    public int GetOperate_zikken()
+    {
+        return Operate;
     }
 }
