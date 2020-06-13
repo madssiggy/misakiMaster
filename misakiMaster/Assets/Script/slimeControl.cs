@@ -50,8 +50,10 @@ public class slimeControl : MonoBehaviour
     public void SlimeDestroy(Vector3 MoveWay)
     {
 
-        
-      //  StartCoroutine(SlimeMove(MoveWay));
+        GameObject effect = (GameObject)Instantiate(BigExplosion,this.transform.position, Quaternion.identity);
+
+        Destroy(effect, 0.5f);
+        //  StartCoroutine(SlimeMove(MoveWay));
         Destroy(gameObject.transform.parent.gameObject);
 
      
@@ -83,13 +85,11 @@ public class slimeControl : MonoBehaviour
 
         Destroy(this.transform.parent.gameObject);
 
-        foreach (ContactPoint contactPoint in collision.contacts)
-        {
+        //foreach (ContactPoint contactPoint in collision.contacts)
+        //{
 
-            GameObject effect = (GameObject)Instantiate(BigExplosion, (Vector3)contactPoint.point, Quaternion.identity);
 
-            Destroy(effect, 0.5f);
-        }
+        //}
 
     }
     //private void OnCollisionEnter(Collision collision)
