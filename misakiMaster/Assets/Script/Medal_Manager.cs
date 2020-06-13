@@ -14,6 +14,7 @@ public class Medal_Manager : MonoBehaviour
     public int goldNum;
 
     private int Cnum;
+
     // Start is called before the first frame update
     void Start()
     {

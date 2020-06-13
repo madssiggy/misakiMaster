@@ -170,13 +170,16 @@ public class manager : MonoBehaviour
         if (bubbleNum ==0)
         {
             Debug.Log("泡がなくなったぞ。今だセーラムーン" + bubbleNum);
-            //SceneManager.LoadScene("SELECT STAGE");
-            //  Debug.Log(tagname + "タグがついたオブジェクトはありません");
+
             ClearCanvas.SetActive(true);
         }
     }
     public int GetNowFront()
     {
         return (int)nowFront;
+    }
+    public int GetBubble()
+    {
+        return bubbleNum;
     }
 }
