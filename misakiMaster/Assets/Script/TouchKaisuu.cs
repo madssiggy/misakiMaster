@@ -25,6 +25,7 @@ public class TouchKaisuu : MonoBehaviour
         touchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
 
         Operate_kawaru = Operate;
+        
     }
 
     // Update is called once per frame
@@ -43,6 +44,7 @@ public class TouchKaisuu : MonoBehaviour
         {
             Operate_kawaru = Operate;
         }
+        operate = Operate - touchScript.touchNum;
     }
 
     //げったーロボ
