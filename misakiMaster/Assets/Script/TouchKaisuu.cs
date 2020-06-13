@@ -15,14 +15,27 @@ public class TouchKaisuu : MonoBehaviour
     private int Operate_kawaru;
     public static int operate;  //ゲッター用
 
+    GameObject StageManager;    // 各値が入ってるマネージャーを呼び出す
+    manager script;             // マネージャーのスクリプト
+
+    public GameObject ClearCanvas;
+    public int bubblenum;
+
     // Start is called before the first frame update
     void Start()
     {
+        //ステージマネージャーの取得
+        StageManager = GameObject.Find("StageManager");
+        //マネージャーが持っているmanagerスクリプト
+        script = StageManager.GetComponent<manager>();
+
         RetryPanelMakeObj = GameObject.Find("RetryPanelMake");
         RetryPanelMakeScript = RetryPanelMakeObj.GetComponent<RetryPanelMake>();
 
         boardText = this.GetComponent<Text>();
         touchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
+
+        ClearCanvas = GameObject.Find("ClearCanvas");
 
         Operate_kawaru = Operate;
     }
@@ -40,8 +53,15 @@ public class TouchKaisuu : MonoBehaviour
         //元々の移動回数からtouchNumを引いた残り移動回数をOperate_kawaruに代入
         Operate_kawaru -= touchScript.touchNum;
 
+        script.CheckBubble();
+        bubblenum = script.GetBubble();
+        //泡の回数が0になったらクリア
+        if (bubblenum == 0)
+        {
+            ClearCanvas.SetActive(true);
+        }
         //残り移動回数が0ならゲームオーバー
-        if (Operate_kawaru == 0)
+        else if (Operate_kawaru == 0)
         {
             RetryPanelMakeScript.SetGameOverFlag();
         }
