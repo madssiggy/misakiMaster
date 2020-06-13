@@ -3281,7 +3281,7 @@ GameObject:
   - component: {fileID: 1263425502}
   - component: {fileID: 1263425501}
   m_Layer: 5
-  m_Name: Text
+  m_Name: NokorikaisuuText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3319,6 +3319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Operate: 9
+  ClearCanvas: {fileID: 0}
+  bubblenum: 0
 --- !u!114 &1263425502
 MonoBehaviour:
   m_ObjectHideFlags: 0

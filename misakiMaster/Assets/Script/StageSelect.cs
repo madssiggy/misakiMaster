@@ -71,6 +71,13 @@ public class StageSelect : MonoBehaviour
         // menuPanelはActive(true)のままにする
         HAJIMARINOUMI.SetActive(true);
     }
+
+    public void StageChoice_EX()
+    {
+        Debug.Log("はじまりのうみ");
+        // menuPanelはActive(true)のままにする
+        EX.SetActive(true);
+    }
     //ステージセレクト画面１に戻るとき
     public void InitStageChoice()
     {

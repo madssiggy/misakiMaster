@@ -23,7 +23,7 @@ public class PopUp : MonoBehaviour
         PopUpObj.SetActive(false);
 
         touchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
-        touchKaisuuScript = GameObject.Find("TouchKaisuu").GetComponent<TouchKaisuu>();
+        touchKaisuuScript = GameObject.Find("NokorikaisuuText").GetComponent<TouchKaisuu>();
 
         bronzMedal.SetActive(false);
         silverMedal.SetActive(false);
