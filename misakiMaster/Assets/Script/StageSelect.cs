@@ -15,6 +15,10 @@ public class StageSelect : MonoBehaviour
     [SerializeField] GameObject HAZIMARINOUMI = default;
     [SerializeField] GameObject SEIREINOMORI = default;
     [SerializeField] GameObject KARAPPONOKAZAN = default;
+    [SerializeField] GameObject CHINMOKUNOMACHI = default;
+    [SerializeField] GameObject HAIZURUNUMACHI = default;
+    [SerializeField] GameObject HAJIMARINOUMI = default;
+    [SerializeField] GameObject EX = default;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +51,26 @@ public class StageSelect : MonoBehaviour
         KARAPPONOKAZAN.SetActive(true);
     }
 
+    public void StageChoice_CHINMOKUNOMACHI()
+    {
+        Debug.Log("ちんもくのまちステージ");
+        // menuPanelはActive(true)のままにする
+        CHINMOKUNOMACHI.SetActive(true);
+    }
+
+    public void StageChoice_HAIZURUNUMACHI()
+    {
+        Debug.Log("はいずるぬまちステージ");
+        // menuPanelはActive(true)のままにする
+        HAIZURUNUMACHI.SetActive(true);
+    }
+
+    public void StageChoice_HAJIMARINOUMI()
+    {
+        Debug.Log("はじまりのうみ");
+        // menuPanelはActive(true)のままにする
+        HAJIMARINOUMI.SetActive(true);
+    }
     //ステージセレクト画面１に戻るとき
     public void InitStageChoice()
     {
@@ -57,6 +81,10 @@ public class StageSelect : MonoBehaviour
         HAZIMARINOUMI.SetActive(false);
         SEIREINOMORI.SetActive(false);
         KARAPPONOKAZAN.SetActive(false);
+        CHINMOKUNOMACHI.SetActive(false);
+        HAIZURUNUMACHI.SetActive(false);
+        HAJIMARINOUMI.SetActive(false);
+        EX.SetActive(false);
     }
 
     // ここから各ステージの遷移
@@ -96,8 +124,73 @@ public class StageSelect : MonoBehaviour
     }
     public void Stage3_1()
     {
-        Debug.Log("からっぽのかざん1-1に移動");
+        Debug.Log("からっぽのかざん3-1に移動");
         script.SceneChange_Fade("3-1",1.0f);
+    }
+    public void Stage3_2()
+    {
+        Debug.Log("からっぽのかざん3-2に移動");
+        script.SceneChange_Fade("3-2", 1.0f);
+    }
+    public void Stage3_3()
+    {
+        Debug.Log("からっぽのかざん3-3に移動");
+        script.SceneChange_Fade("3-3", 1.0f);
+    }
+    public void Stage4_1()
+    {
+        Debug.Log("ちんもくのまち4-1に移動");
+        script.SceneChange_Fade("4-1", 1.0f);
+    }
+    public void Stage4_2()
+    {
+        Debug.Log("ちんもくのまち4-2に移動");
+        script.SceneChange_Fade("4-2", 1.0f);
+    }
+    public void Stage4_3()
+    {
+        Debug.Log("ちんもくのまち4-3に移動");
+        script.SceneChange_Fade("4-3", 1.0f);
+    }
+    public void Stage5_1()
+    {
+        Debug.Log("はいずるぬまち5-1に移動");
+        script.SceneChange_Fade("5-1", 1.0f);
+    }
+    public void Stage5_2()
+    {
+        Debug.Log("はいずるぬまち5-2に移動");
+        script.SceneChange_Fade("5-2", 1.0f);
+    }
+    public void Stage5_3()
+    {
+        Debug.Log("はいずるぬまち5-3に移動");
+        script.SceneChange_Fade("5-3", 1.0f);
+    }
+    public void Stage6_1()
+    {
+        Debug.Log("はじまりのうみ6-1に移動");
+        script.SceneChange_Fade("6-1", 1.0f);
+    }
+    public void Stage6_2()
+    {
+        Debug.Log("はじまりのうみ6-2に移動");
+        script.SceneChange_Fade("6-2", 1.0f);
+    }
+    public void Stage6_3()
+    {
+        Debug.Log("はじまりのうみ6-3に移動");
+        script.SceneChange_Fade("6-3", 1.0f);
+    }
+    public void StageEx_1()
+    {
+        Debug.Log("Ex-1に移動");
+        script.SceneChange_Fade("Ex-1", 1.0f);
+    }
+    public void StageEx_2()
+    {
+        Debug.Log("Ex-2に移動");
+        script.SceneChange_Fade("Ex-2", 1.0f);
     }
     public void Tutorial()
     {
