@@ -35,7 +35,7 @@ public class TouchKaisuu : MonoBehaviour
         boardText = this.GetComponent<Text>();
         touchScript = GameObject.Find("TouchManager").GetComponent<Touch>();
 
-        ClearCanvas = GameObject.Find("ClearCanvas");
+
 
         Operate_kawaru = Operate;
     }
