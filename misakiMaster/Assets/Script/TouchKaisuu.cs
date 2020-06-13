@@ -45,6 +45,11 @@ public class TouchKaisuu : MonoBehaviour
         {
             RetryPanelMakeScript.SetGameOverFlag();
         }
+        else
+        {
+            Operate_kawaru = Operate;
+        }
+        operate = Operate - touchScript.touchNum;
     }
 
     //げったーロボ
