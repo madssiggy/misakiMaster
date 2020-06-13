@@ -58,6 +58,6 @@ public class Clear_Manager : MonoBehaviour
     public void OnClickStartButton()
     {
         Debug.Log("前シーンにバック");
-        script.SceneBack_Fade(0.5f);
+        script.SceneChange_Fade("SELECT STAGE",0.5f);
     }
 }
