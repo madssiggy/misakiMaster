@@ -8,32 +8,24 @@ public class CutIn : MonoBehaviour
     Vector3 Pos;
     public float Speed;
     public float Accel;
+    public float CutInOutPos;
     // Start is called before the first frame update
     void Start()
     {
         meganepos = GetComponent<RectTransform>();
         Pos = new Vector3(0, 0, 0);
-        StartCoroutine(CutInMode());
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow)){
-         
-        }
-
-        if(Input.GetKeyDown(KeyCode.RightArrow)){
-            Pos.x +=Speed;
-        }
-
- 
-        StartCoroutine(CutInMode());
+       
     }
     IEnumerator CutInMode()
     {
         float Move = Speed;
-        float x=300f;
+        float x=CutInOutPos;
         do {
             x -= Move;
             meganepos.localPosition =new Vector3(x,0,0);
@@ -52,10 +44,14 @@ public class CutIn : MonoBehaviour
             meganepos.localPosition = new Vector3(x, 0, 0);
             Move += Accel;
             yield return null;
-        } while (x >= -300f);
+        } while (x >= -CutInOutPos);
         Destroy(GameObject.Find("CutInBoard"));
         Destroy(this.gameObject.transform.root.gameObject);
         
         yield break;
+    }
+    public void DestroyUI()
+    {
+        Destroy(this.gameObject);
     }
 }

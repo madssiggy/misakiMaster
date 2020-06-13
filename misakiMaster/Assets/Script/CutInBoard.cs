@@ -21,6 +21,6 @@ public class CutInBoard : MonoBehaviour
     {
         TouchCountScript = GameObject.Find("NokorikaisuuText").GetComponent<TouchKaisuu>();
 
-        boardText.text =(TouchCountScript.Operate)+"回以内のタッチで\nクリアしよう";
+        boardText.text =(TouchCountScript.Operate)+"回以内のタッチで\nクリアしよう\nタッチで開始";
     }
 }

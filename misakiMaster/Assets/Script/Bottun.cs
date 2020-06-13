@@ -73,4 +73,8 @@ public class Bottun : MonoBehaviour
     {
         scene_script.SceneReload(1.0f);
     }
+    public void DestroyUI()
+    {
+        Destroy(this.gameObject);
+    }
 }
