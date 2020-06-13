@@ -14,8 +14,6 @@ public class manager : MonoBehaviour
     public bool isRotate = false;
     public bool isCamera = false;
 
-    public GameObject ClearCanvas;
-
     public enum Wall
     {
        Front = 0,
@@ -45,7 +43,6 @@ public class manager : MonoBehaviour
         nowFront = (int)Wall.Front;
 
         bubble = GameObject.FindGameObjectsWithTag("bubble");
-
 
         bubbleNum = bubble.Length; 
 
@@ -166,13 +163,6 @@ public class manager : MonoBehaviour
     {
         bubble = GameObject.FindGameObjectsWithTag("bubble");
         bubbleNum = bubble.Length;      //Debug.Log("virusnum=" + virusnum);
-
-        if (bubbleNum ==0)
-        {
-            Debug.Log("泡がなくなったぞ。今だセーラムーン" + bubbleNum);
-
-            ClearCanvas.SetActive(true);
-        }
     }
     public int GetNowFront()
     {
