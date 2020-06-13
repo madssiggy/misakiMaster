@@ -3469,7 +3469,7 @@ MonoBehaviour:
   setting_buton: {fileID: 1365836177}
   HAZIMARINOUMI: {fileID: 738911471}
   SEIREINOMORI: {fileID: 2147087419}
-  KARAPPONOKAZAN: {fileID: 0}
+  KARAPPONOKAZAN: {fileID: 1963626007}
 --- !u!4 &774972892
 Transform:
   m_ObjectHideFlags: 0
