@@ -527,13 +527,17 @@ public void setStartMoveWay(Vector3 way) {
                 case (int)manager.Wall.Left:
                     //xがおなじでなければ成立しない
                     if (startObj.transform.position.x == endObj.transform.position.x) {
-                        canBubbleAct = true;
+                        if (startObj.transform.position.y == endObj.transform.position.y|| startObj.transform.position.z == endObj.transform.position.z) {
+                            canBubbleAct = true;
+                        }
                     }
                     break;
                 default:
                     //zがおなじでなければ成立しない
                     if (startObj.transform.position.z == endObj.transform.position.z) {
-                        canBubbleAct = true;
+                        if (startObj.transform.position.y == endObj.transform.position.y || startObj.transform.position.x == endObj.transform.position.x) {
+                            canBubbleAct = true;
+                        }
                     }
                     break;
            }
