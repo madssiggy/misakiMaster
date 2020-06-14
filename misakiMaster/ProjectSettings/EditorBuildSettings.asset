@@ -73,5 +73,8 @@ EditorBuildSettings:
     guid: 7d282f55755823d498999bcac873c516
   - enabled: 1
     path: Assets/Scenes/Ex-2.unity
+    guid: 9a0224d94f81c6f4186b25e0a808f8ab
+  - enabled: 1
+    path: Assets/Scenes/KituneBotsu.unity
     guid: f5d55c3197b68a44eab844992a92ad68
   m_configObjects: {}

@@ -7012,7 +7012,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 500767925}
         m_MethodName: OnBackTitle
         m_Mode: 1
         m_Arguments:
@@ -7808,8 +7808,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 774972891}
-        m_MethodName: OnSettingEnd
+      - m_Target: {fileID: 500767925}
+        m_MethodName: OnBackSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
