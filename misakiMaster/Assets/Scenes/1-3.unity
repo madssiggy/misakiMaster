@@ -559,7 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f60dd32e0bde2a749ab0078c301a8143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Operate: 14
+  Operate: 22
   ClearCanvas: {fileID: 315486180}
   bubblenum: 0
 --- !u!114 &79360316
