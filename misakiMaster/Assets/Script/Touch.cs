@@ -372,23 +372,29 @@ public class Touch : MonoBehaviour
         switch (nowFront) {
             case (int)manager.Wall.Left:
             case (int)manager.Wall.Right:
-                if (Mathf.Abs(startMoveWay.z) < Mathf.Abs(startMoveWay.y)) {
-                    PrefPath = "Prefab/Fields/FieldInMidTate";
-                    Debug.Log("z>y,Tate");
-                } else if (Mathf.Abs(startMoveWay.z) > Mathf.Abs(startMoveWay.y)) {
-                    PrefPath = "Prefab/Fields/FieldInMidYoko";
-                    Debug.Log("z<y,Yoko");
+                if (startObj.transform.position.x == endObj.transform.position.x) {
+                    if (startObj.transform.position.y == endObj.transform.position.y) {
+                        PrefPath = "Prefab/Fields/FieldInMidYoko";
+                        Debug.Log("z>y,Tate");
+                    } else if (startObj.transform.position.z == endObj.transform.position.z) {
+                        PrefPath = "Prefab/Fields/FieldInMidTate";
+                        Debug.Log("z>y,Tate");
+                    }
+
                 }
-                break;
+                    break;
             case (int)manager.Wall.Front:
             case (int)manager.Wall.Back:
             default:
-                if (Mathf.Abs(startMoveWay.x) > Mathf.Abs(startMoveWay.y)) {
-                    PrefPath = "Prefab/Fields/FieldInMidYoko";
-                    Debug.Log("x>y,Yoko");
-                } else if (Mathf.Abs(startMoveWay.x) < Mathf.Abs(startMoveWay.y)) {
-                    PrefPath = "Prefab/Fields/FieldInMidTate";
-                    Debug.Log("x<y,tate");
+                if (startObj.transform.position.z == endObj.transform.position.z) {
+                    if (startObj.transform.position.y == endObj.transform.position.y) {
+                        PrefPath = "Prefab/Fields/FieldInMidYoko";
+                        Debug.Log("z>y,Tate");
+                    } else if (startObj.transform.position.x == endObj.transform.position.x) {
+                        PrefPath = "Prefab/Fields/FieldInMidTate";
+                        Debug.Log("z>y,Tate");
+                    }
+
                 }
                 break;
         }
