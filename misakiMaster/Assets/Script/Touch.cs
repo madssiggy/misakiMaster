@@ -368,7 +368,8 @@ public class Touch : MonoBehaviour
         int nowFront = managerScript.nowFront;
         slimeControl slc = endObj.GetComponent<slimeControl>();
         Debug.Log("Way" + startMoveWay+"========================================");
-        string PrefPath = "Prefab/Fields/FieldInMidYoko";
+        string PrefPath = null;
+//        "Prefab/Fields/FieldInMidYoko";
         switch (nowFront) {
             case (int)manager.Wall.Left:
             case (int)manager.Wall.Right:
