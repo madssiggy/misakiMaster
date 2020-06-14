@@ -4900,7 +4900,7 @@ PrefabInstance:
     - target: {fileID: 8514881072338747510, guid: 026cfc4ea7dde0b47b2425eef63433d1,
         type: 3}
       propertyPath: bronzNum
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8514881072999200411, guid: 026cfc4ea7dde0b47b2425eef63433d1,
         type: 3}
