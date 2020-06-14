@@ -2181,17 +2181,17 @@ PrefabInstance:
     - target: {fileID: 8514881072338747510, guid: 026cfc4ea7dde0b47b2425eef63433d1,
         type: 3}
       propertyPath: goldNum
-      value: 20
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8514881072338747510, guid: 026cfc4ea7dde0b47b2425eef63433d1,
         type: 3}
       propertyPath: silverNum
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8514881072338747510, guid: 026cfc4ea7dde0b47b2425eef63433d1,
         type: 3}
       propertyPath: bronzNum
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8514881072999200411, guid: 026cfc4ea7dde0b47b2425eef63433d1,
         type: 3}
