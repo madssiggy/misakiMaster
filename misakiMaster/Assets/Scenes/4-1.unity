@@ -2138,7 +2138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Operate: 22
-  ClearCanvas: {fileID: 0}
+  ClearCanvas: {fileID: 1517530070}
   bubblenum: 0
 --- !u!114 &1067100631
 MonoBehaviour:

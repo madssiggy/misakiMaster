@@ -995,6 +995,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 026cfc4ea7dde0b47b2425eef63433d1, type: 3}
+--- !u!1 &381756529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8514881072999200411, guid: 026cfc4ea7dde0b47b2425eef63433d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 381756528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &384499328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,7 +1666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Operate: 18
-  ClearCanvas: {fileID: 0}
+  ClearCanvas: {fileID: 381756529}
   bubblenum: 0
 --- !u!114 &584028592
 MonoBehaviour:
