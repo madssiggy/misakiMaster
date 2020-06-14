@@ -2040,7 +2040,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 760cd2cc466fe4244a0dfadc0032fb75, type: 2}
-  setting_buttonObj: {fileID: 0}
+  setting_buttonObj: {fileID: 1365836177}
   vol1: {fileID: 3444046249446861130}
   vol2: {fileID: 3444046249446861129}
   vol3: {fileID: 3444046249446861128}
@@ -2052,7 +2052,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500767924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36.83076, y: 159.13966, z: 0}
+  m_LocalPosition: {x: 36.830765, y: 159.13966, z: 0}
   m_LocalScale: {x: 16.62769, y: 16.62769, z: 16.62769}
   m_Children: []
   m_Father: {fileID: 1365836178}
@@ -6309,7 +6309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1365836178
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7809,7 +7809,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 500767925}
-        m_MethodName: OnBackSelect
+        m_MethodName: OnDisappearSettingButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
