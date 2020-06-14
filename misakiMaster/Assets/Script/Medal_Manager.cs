@@ -13,7 +13,7 @@ public class Medal_Manager : MonoBehaviour
     public int silverNum;
     public int goldNum;
 
-    private int Cnum;
+    public int Cnum;
 
     // Start is called before the first frame update
     void Start()
@@ -24,22 +24,22 @@ public class Medal_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Cnum <= bronzNum) 
-        {
-            bronzMedal.SetActive(true);
-        }
-
-        else if (Cnum <= silverNum)
-        {
-            bronzMedal.SetActive(true);
-            silverMedal.SetActive(true);
-        }
-
-        else if (Cnum <= goldNum)
+        if (Cnum >= goldNum)
         {
             bronzMedal.SetActive(true);
             silverMedal.SetActive(true);
             goldMedal.SetActive(true);
+        }
+
+        else if (Cnum >= silverNum)
+        {
+            bronzMedal.SetActive(true);
+            silverMedal.SetActive(true);
+        }
+
+        else if (Cnum >= bronzNum) 
+        {
+            bronzMedal.SetActive(true);
         }
     }
 }
